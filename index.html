@@ -669,7 +669,7 @@ function mostrarResultado(f) {
         </tr>
     `).join('');
 
-    // Aditivos W X Y
+    // Aditivos
     const adDiv = document.getElementById('aditivosContainer');
     const cols  = [
         { key: 'columna_w', label: 'W' },
@@ -755,7 +755,7 @@ function descargarHTML() {
 </style></head><body>
 <div class="noprint controls"><button onclick="window.print()">🖨️ Imprimir</button></div>
 <h1>Fanatics Silicon</h1>
-<div class="sub">Sistema de Fórmulas W-X-Y-Z</div>
+<div class="sub">Sistema de Fórmulas Fanatics</div>
 <div class="info">
   <div class="info-item"><label>Código</label><value>${f.codigo}</value></div>
   <div class="info-item"><label>Color</label><value>${f.nombre}</value></div>
@@ -767,7 +767,7 @@ function descargarHTML() {
   <thead><tr><th>Componente</th><th style="text-align:right">Proporción</th><th style="text-align:right">%</th></tr></thead>
   <tbody>${ingsHTML}</tbody>
 </table>
-<div class="sec">Aditivos (W · X · Y)</div>
+<div class="sec">Aditivos</div>
 <div style="display:flex;gap:12px;margin:16px 0;">${adtHTML}</div>
 <div class="sec">Comentarios (Z)</div>
 ${comentHTML}
