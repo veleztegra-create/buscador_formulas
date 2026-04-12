@@ -584,11 +584,11 @@ async function cargarJSON() {
 
         const raw = await resp.json();
 
-        // Filtrar filas válidas: necesitan SISTEMA DE SILICON y Column11
+        // Filtrar filas válidas: excluir nulls, encabezados y fila de categorías
         const filas = raw.filter(r =>
-            r && r['SISTEMA DE SILICON'] !== undefined &&
+            r !== null &&
+            r['SISTEMA DE SILICON'] !== undefined &&
             r.Column11 && typeof r.Column11 === 'string' &&
-            // Excluir las filas de encabezado/categorías del JSON
             r.Column11 !== 'COLOR' && r['SISTEMA DE SILICON'] !== 'CODIGO'
         );
 
