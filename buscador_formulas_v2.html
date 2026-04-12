@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanatics Silicon - Buscador de Fórmulas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d0f14;
+            --surface: #151820;
+            --surface2: #1c2030;
+            --border: #252a3a;
+            --accent: #e8b84b;
+            --accent2: #3d7fff;
+            --danger: #e05252;
+            --success: #3dba7e;
+            --text: #e8eaf0;
+            --text-muted: #6b7494;
+            --blocker: #e05252;
+            --bases: #3dba7e;
+            --pigmento: #3d7fff;
+            --clear: #a78bfa;
+            --aditivo: #f97316;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Barlow', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 30px 20px 60px;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .header-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 52px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: 1;
+            color: var(--text);
+        }
+
+        .header h1 span { color: var(--accent); }
+
+        .header-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* ── LAYOUT ── */
+        .container { max-width: 860px; margin: 0 auto; }
+
+        /* ── STATUS BAR ── */
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .status-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .status-dot.ok { background: var(--success); box-shadow: 0 0 6px var(--success); }
+        .status-dot.error { background: var(--danger); }
+        .status-dot.loading { background: var(--accent); animation: pulse 1s infinite; }
+
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+        /* ── SEARCH ── */
+        .search-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .search-input {
+            flex: 1;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 13px 16px;
+            font-size: 16px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--text);
+            transition: border-color .2s;
+            outline: none;
+        }
+
+        .search-input:focus { border-color: var(--accent); }
+        .search-input::placeholder { color: var(--text-muted); font-weight: 400; letter-spacing: 0; }
+
+        .btn-search {
+            padding: 13px 28px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: opacity .2s;
+        }
+
+        .btn-search:hover { opacity: .85; }
+
+        /* ── CHIPS ── */
+        .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+
+        .chip {
+            padding: 5px 13px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 12px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            letter-spacing: .5px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .chip:hover { border-color: var(--accent); color: var(--accent); }
+
+        .chip[data-cat="BLOCKER"] { border-color: color-mix(in srgb, var(--blocker) 40%, transparent); color: var(--blocker); }
+        .chip[data-cat="BASES"]   { border-color: color-mix(in srgb, var(--bases) 40%, transparent);   color: var(--bases); }
+        .chip[data-cat="PIGMENTO"]{ border-color: color-mix(in srgb, var(--pigmento) 40%, transparent); color: var(--pigmento); }
+        .chip[data-cat="CLEAR"]   { border-color: color-mix(in srgb, var(--clear) 40%, transparent);   color: var(--clear); }
+
+        /* ── NO RESULTS ── */
+        .no-results {
+            padding: 14px;
+            background: color-mix(in srgb, var(--danger) 10%, transparent);
+            border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent);
+            border-radius: 8px;
+            color: var(--danger);
+            font-size: 14px;
+            margin-top: 14px;
+        }
+
+        /* ── RESULT CARD ── */
+        .result-card { display: none; }
+
+        .formula-header {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px 12px 0 0;
+            padding: 28px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: none;
+        }
+
+        .formula-code {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1;
+            color: var(--accent);
+        }
+
+        .formula-info { flex: 1; }
+
+        .formula-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .cat-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        .cat-BLOCKER { background: color-mix(in srgb, var(--blocker) 20%, transparent); color: var(--blocker); }
+        .cat-BASES   { background: color-mix(in srgb, var(--bases) 20%, transparent);   color: var(--bases); }
+        .cat-PIGMENTO{ background: color-mix(in srgb, var(--pigmento) 20%, transparent); color: var(--pigmento); }
+        .cat-CLEAR   { background: color-mix(in srgb, var(--clear) 20%, transparent);   color: var(--clear); }
+        .cat-ADITIVO { background: color-mix(in srgb, var(--aditivo) 20%, transparent); color: var(--aditivo); }
+
+        /* ── SECTIONS ── */
+        .sections-wrap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            padding: 24px 30px;
+        }
+
+        .section { margin-bottom: 28px; }
+
+        .section-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* ── INGREDIENTS TABLE ── */
+        .ing-table { width: 100%; border-collapse: collapse; }
+
+        .ing-table tr { border-bottom: 1px solid var(--border); }
+        .ing-table tr:last-child { border-bottom: none; }
+
+        .ing-table td {
+            padding: 10px 6px;
+            font-size: 14px;
+        }
+
+        .ing-name { color: var(--text); }
+
+        .ing-vals { text-align: right; display: flex; gap: 10px; justify-content: flex-end; align-items: center; }
+
+        .ing-pct {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--accent);
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .ing-raw {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 12px;
+            color: var(--text-muted);
+            min-width: 70px;
+            text-align: right;
+        }
+
+        /* ── ADITIVOS GRID ── */
+        .aditivos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .aditivo-box {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .aditivo-box.has { border-color: var(--success); background: color-mix(in srgb, var(--success) 8%, var(--surface2)); }
+        .aditivo-box.zero { opacity: .5; }
+
+        .adt-col {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .adt-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .adt-val {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--accent2);
+        }
+
+        .aditivo-box.has .adt-val { color: var(--success); }
+
+        /* ── COMENTARIOS ── */
+        .comentario-box {
+            background: color-mix(in srgb, var(--accent) 8%, transparent);
+            border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+            border-radius: 10px;
+            padding: 18px 22px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: .5px;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        .comentario-box.na {
+            background: var(--surface2);
+            border-color: var(--border);
+            color: var(--text-muted);
+            font-size: 14px;
+            font-family: 'Barlow', sans-serif;
+            font-weight: 400;
+        }
+
+        /* ── ACTIONS ── */
+        .actions { display: flex; gap: 10px; margin-top: 20px; }
+
+        .btn-dl {
+            flex: 1;
+            padding: 14px;
+            background: var(--accent2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: opacity .2s;
+        }
+
+        .btn-dl:hover { opacity: .85; }
+
+        .btn-new {
+            padding: 14px 24px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all .2s;
+        }
+
+        .btn-new:hover { border-color: var(--text-muted); color: var(--text); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 540px) {
+            .aditivos-grid { grid-template-columns: 1fr 1fr; }
+            .formula-code { font-size: 36px; }
+            .header h1 { font-size: 36px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <div class="header-label">Sistema de Etiquetas</div>
+        <h1>Fanatics <span>Silicon</span></h1>
+        <div class="header-sub">Base de datos externa · Sistema W-X-Y-Z</div>
+    </div>
+
+    <!-- Status del JSON -->
+    <div class="status-bar" id="statusBar">
+        <div class="status-dot loading" id="statusDot"></div>
+        <span id="statusText">Cargando base de datos...</span>
+    </div>
+
+    <!-- Búsqueda -->
+    <div class="search-card">
+        <div class="search-row">
+            <input type="text" class="search-input" id="busqueda"
+                   placeholder="Buscar por código o color (76I, BLOCKER, METALICO...)"
+                   disabled>
+            <button class="btn-search" onclick="buscar()" id="btnBuscar" disabled>Buscar</button>
+        </div>
+        <div class="chips" id="chipsContainer"></div>
+        <div id="mensajeError"></div>
+    </div>
+
+    <!-- Resultado -->
+    <div class="result-card" id="resultado">
+        <div class="formula-header">
+            <div class="formula-code" id="resCodigo">—</div>
+            <div class="formula-info">
+                <div class="formula-name" id="resNombre">—</div>
+                <div class="cat-badge" id="resCategoria">—</div>
+            </div>
+        </div>
+
+        <div class="sections-wrap">
+
+            <div class="section">
+                <div class="section-title">Composición Base</div>
+                <table class="ing-table" id="listaIngredientes"></table>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Aditivos · Columnas W · X · Y</div>
+                <div class="aditivos-grid" id="aditivosContainer"></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Comentarios · Columna Z</div>
+                <div id="comentariosDisplay" class="comentario-box na">Sin comentarios</div>
+            </div>
+
+            <div class="actions">
+                <button class="btn-dl" onclick="descargarHTML()">⬇ Descargar Etiqueta HTML</button>
+                <button class="btn-new" onclick="nuevaBusqueda()">↺ Nueva</button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  MAPEO DEL JSON DE OREGON → FORMATO INTERNO
+//  El JSON tiene columnas genéricas (Column12..Column26).
+//  Esta función convierte cada fila al objeto que usa la UI.
+// ═══════════════════════════════════════════════════════
+
+// Mapa de Column → nombre de ingrediente (según la fila de encabezado del JSON)
+const COL_INGREDIENTES = {
+    Column12: 'LIBRA BARRIER CLEAR PART A',
+    Column13: 'LIBRA BARRIER BLACK PART B',
+    Column14: 'LIBRA MATTE MIXING BASE',
+    Column15: 'LIBRA RFU WHITE',
+    Column16: 'LIBRA SILVER SHIMMER TONER',
+    Column17: 'LIBRA YELLOW PC',
+    Column18: 'LIBRA ORANGE PC',
+    Column19: 'LIBRA BLUE # 2 PC',
+    Column20: 'LIBRA BLACK PC',
+    Column21: 'LIBRA CLEAR GEL PART A',
+    Column22: 'LIBRA CLEAR GEL PART B',
+};
+
+// Mapa de Column → nombre de aditivo + columna W/X/Y
+const COL_ADITIVOS = {
+    Column23: { col: 'W', nombre: 'LIBRA CATALYST' },
+    Column24: { col: 'X', nombre: 'LIBRA RETARDER' },
+    Column25: { col: 'Y', nombre: 'LIBRA MATTE' },
+};
+
+// Categoría por código de color (columna Column12 de la fila de categorías del JSON)
+// El JSON tiene una fila con { Column12:"BLOCKER", Column14:"BASES", Column17:"PIGMENTO",
+//                              Column21:"CLEAR", Column23:"ADITIVO" }
+// Usamos esa lógica para asignar categoría a cada fórmula según qué columnas tienen valores.
+function detectarCategoria(row) {
+    // Si tiene BARRIER → BLOCKER
+    if (isNum(row.Column12) || isNum(row.Column13)) return 'BLOCKER';
+    // Si tiene CLEAR GEL → CLEAR
+    if (isNum(row.Column21) || isNum(row.Column22)) return 'CLEAR';
+    // Si solo tiene LIBRA RFU WHITE y nada más en ingredientes → BASES
+    const tieneBase   = isNum(row.Column14);
+    const tieneShimmer= isNum(row.Column16);
+    const tienePigmentos = isNum(row.Column17) || isNum(row.Column18) ||
+                           isNum(row.Column19) || isNum(row.Column20);
+    if (!tieneBase && !tieneShimmer && !tienePigmentos && isNum(row.Column15)) return 'BASES';
+    return 'PIGMENTO';
+}
+
+function isNum(v) {
+    return typeof v === 'number' && !isNaN(v);
+}
+
+function pct(v) {
+    if (!isNum(v)) return null;
+    return (v * 100).toFixed(2) + '%';
+}
+
+function mapearFila(row) {
+    // Ingredientes: solo columnas que tienen valor numérico
+    const ingredientes = [];
+    for (const [col, nombre] of Object.entries(COL_INGREDIENTES)) {
+        const val = row[col];
+        if (isNum(val)) {
+            ingredientes.push({
+                nombre,
+                valor: val,
+                porcentaje: pct(val)
+            });
+        }
+    }
+
+    // Aditivos
+    const aditivos = {};
+    for (const [col, info] of Object.entries(COL_ADITIVOS)) {
+        const val = row[col];
+        const numVal = isNum(val) ? val : 0;
+        aditivos[`columna_${info.col.toLowerCase()}`] = {
+            nombre: info.nombre,
+            valor: numVal === 0 ? '0' : (numVal * 100).toFixed(2),
+            unidad: '%'
+        };
+    }
+
+    // Comentarios
+    const comentarios = row.Column26 || null;
+
+    return {
+        codigo:      (row['SISTEMA DE SILICON'] || 'N/A').toString().trim(),
+        nombre:      (row.Column11 || '').toString().trim().toUpperCase(),
+        categoria:   detectarCategoria(row),
+        ingredientes,
+        aditivos,
+        comentarios
+    };
+}
+
+// ═══════════════════════════════════════════════════════
+//  CARGA DEL JSON EXTERNO
+// ═══════════════════════════════════════════════════════
+let DATABASE = [];
+let formulaActual = null;
+
+async function cargarJSON() {
+    const dot  = document.getElementById('statusDot');
+    const text = document.getElementById('statusText');
+    const input = document.getElementById('busqueda');
+    const btn   = document.getElementById('btnBuscar');
+
+    try {
+        // 🔧 CAMBIA ESTA RUTA al nombre real de tu archivo JSON
+        const JSON_URL = 'oregon_silicon.json';
+
+        const resp = await fetch(JSON_URL);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+        const raw = await resp.json();
+
+        // Filtrar filas válidas: necesitan SISTEMA DE SILICON y Column11
+        const filas = raw.filter(r =>
+            r && r['SISTEMA DE SILICON'] !== undefined &&
+            r.Column11 && typeof r.Column11 === 'string' &&
+            // Excluir las filas de encabezado/categorías del JSON
+            r.Column11 !== 'COLOR' && r['SISTEMA DE SILICON'] !== 'CODIGO'
+        );
+
+        DATABASE = filas.map(mapearFila);
+
+        // Construir chips
+        buildChips();
+
+        dot.className  = 'status-dot ok';
+        text.textContent = `✓ Base de datos cargada · ${DATABASE.length} fórmulas disponibles`;
+        input.disabled = false;
+        btn.disabled   = false;
+        input.focus();
+
+    } catch (err) {
+        dot.className  = 'status-dot error';
+        text.textContent = `Error al cargar el JSON: ${err.message} · ¿El archivo está en la misma carpeta?`;
+    }
+}
+
+function buildChips() {
+    const container = document.getElementById('chipsContainer');
+    DATABASE.forEach(f => {
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.dataset.cat = f.categoria;
+        chip.textContent = f.codigo !== 'N/A' ? `${f.codigo} · ${f.nombre}` : f.nombre;
+        chip.onclick = () => { document.getElementById('busqueda').value = f.codigo !== 'N/A' ? f.codigo : f.nombre; buscar(); };
+        container.appendChild(chip);
+    });
+}
+
+// ═══════════════════════════════════════════════════════
+//  LÓGICA DE BÚSQUEDA Y DISPLAY
+// ═══════════════════════════════════════════════════════
+function setBusqueda(v) { document.getElementById('busqueda').value = v; buscar(); }
+
+function buscar() {
+    const query = document.getElementById('busqueda').value.toUpperCase().trim();
+    const errorDiv = document.getElementById('mensajeError');
+
+    if (!query) { errorDiv.innerHTML = '<div class="no-results">Ingresa un código o color</div>'; return; }
+
+    formulaActual = DATABASE.find(f => {
+        const cod = f.codigo.toUpperCase();
+        const nom = f.nombre.toUpperCase();
+        return cod === query || nom.includes(query) || cod.includes(query);
+    });
+
+    if (formulaActual) {
+        mostrarResultado(formulaActual);
+        errorDiv.innerHTML = '';
+    } else {
+        errorDiv.innerHTML = `<div class="no-results">❌ No encontrado: "${query}"</div>`;
+        document.getElementById('resultado').style.display = 'none';
+    }
+}
+
+function mostrarResultado(f) {
+    document.getElementById('resCodigo').textContent = f.codigo === 'N/A' ? '—' : f.codigo;
+    document.getElementById('resNombre').textContent = f.nombre;
+
+    const badge = document.getElementById('resCategoria');
+    badge.textContent = f.categoria;
+    badge.className = `cat-badge cat-${f.categoria}`;
+
+    // Ingredientes
+    const tabla = document.getElementById('listaIngredientes');
+    tabla.innerHTML = f.ingredientes.map(ing => `
+        <tr>
+            <td class="ing-name">${ing.nombre}</td>
+            <td>
+                <div class="ing-vals">
+                    <span class="ing-raw">${ing.valor.toFixed ? ing.valor.toFixed(6) : ing.valor}</span>
+                    <span class="ing-pct">${ing.porcentaje}</span>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+
+    // Aditivos W X Y
+    const adDiv = document.getElementById('aditivosContainer');
+    const cols  = [
+        { key: 'columna_w', label: 'W' },
+        { key: 'columna_x', label: 'X' },
+        { key: 'columna_y', label: 'Y' },
+    ];
+    adDiv.innerHTML = cols.map(({ key, label }) => {
+        const adt     = f.aditivos[key];
+        const hasVal  = adt && parseFloat(adt.valor) > 0;
+        const display = adt ? `${adt.valor}${adt.unidad}` : '—';
+        const nombre  = adt ? adt.nombre : '—';
+        return `
+            <div class="aditivo-box ${hasVal ? 'has' : 'zero'}">
+                <div class="adt-col">Columna ${label}</div>
+                <div class="adt-name">${nombre}</div>
+                <div class="adt-val">${display}</div>
+            </div>`;
+    }).join('');
+
+    // Comentarios
+    const comDiv = document.getElementById('comentariosDisplay');
+    if (f.comentarios && f.comentarios !== 'N/A') {
+        comDiv.textContent = f.comentarios;
+        comDiv.className   = 'comentario-box';
+    } else {
+        comDiv.textContent = 'Sin comentarios';
+        comDiv.className   = 'comentario-box na';
+    }
+
+    document.getElementById('resultado').style.display = 'block';
+    document.getElementById('resultado').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ═══════════════════════════════════════════════════════
+//  DESCARGA DE ETIQUETA HTML
+// ═══════════════════════════════════════════════════════
+function descargarHTML() {
+    if (!formulaActual) return;
+    const f    = formulaActual;
+    const fecha = new Date().toLocaleDateString('es-ES');
+
+    const ingsHTML = f.ingredientes.map(ing => `
+        <tr>
+            <td style="padding:11px 14px;border-bottom:1px solid #e5e7eb;">${ing.nombre}</td>
+            <td style="padding:11px 14px;border-bottom:1px solid #e5e7eb;text-align:right;font-family:monospace;font-size:13px;color:#555;">${ing.valor.toFixed ? ing.valor.toFixed(6) : ing.valor}</td>
+            <td style="padding:11px 14px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:700;font-size:16px;color:#1e3a8a;">${ing.porcentaje}</td>
+        </tr>`).join('');
+
+    const cols = ['columna_w','columna_x','columna_y'];
+    const adtHTML = cols.map(key => {
+        const a = f.aditivos[key];
+        if (!a) return '';
+        const hasVal = parseFloat(a.valor) > 0;
+        const border = hasVal ? '#16a34a' : '#dc2626';
+        const bg     = hasVal ? '#f0fdf4' : '#fef2f2';
+        return `<div style="flex:1;padding:16px;background:${bg};border:2px solid ${border};border-radius:8px;text-align:center;">
+            <div style="font-size:11px;color:#6b7280;letter-spacing:2px;margin-bottom:4px;">Columna ${key.slice(-1).toUpperCase()}</div>
+            <div style="font-weight:600;font-size:13px;margin-bottom:10px;color:#111;">${a.nombre}</div>
+            <div style="font-size:28px;font-weight:900;color:${hasVal ? '#16a34a' : '#dc2626'};">${a.valor}${a.unidad}</div>
+        </div>`;
+    }).join('');
+
+    const comentHTML = (f.comentarios && f.comentarios !== 'N/A')
+        ? `<div style="background:#fefce8;border:2px solid #eab308;border-radius:8px;padding:18px;text-align:center;font-size:18px;font-weight:700;color:#854d0e;">${f.comentarios}</div>`
+        : `<div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px;text-align:center;font-size:14px;color:#9ca3af;">Sin comentarios</div>`;
+
+    const html = `<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<title>Etiqueta ${f.codigo !== 'N/A' ? f.codigo : f.nombre}</title>
+<style>
+  @media print{.noprint{display:none}body{padding:20px}}
+  body{font-family:Arial,sans-serif;max-width:820px;margin:0 auto;padding:40px 24px;background:#fff;color:#111;}
+  h1{font-size:30px;font-weight:900;text-transform:uppercase;letter-spacing:-1px;}
+  .sub{color:#666;font-size:14px;margin-top:4px;}
+  .info{display:flex;gap:30px;margin:24px 0;padding:18px 20px;background:#f8f9fa;border-radius:8px;}
+  .info-item label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#999;display:block;}
+  .info-item value{font-size:18px;font-weight:700;}
+  table{width:100%;border-collapse:collapse;margin:16px 0;}
+  th{background:#111;color:#fff;padding:12px 14px;text-align:left;font-size:13px;letter-spacing:1px;}
+  .sec{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:28px 0 14px;color:#1e3a8a;padding-bottom:8px;border-bottom:2px solid #1e3a8a;}
+  .controls{position:fixed;top:16px;right:16px;background:#fff;padding:16px;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.15);}
+  .controls button{padding:10px 20px;background:#1e3a8a;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:700;}
+</style></head><body>
+<div class="noprint controls"><button onclick="window.print()">🖨️ Imprimir</button></div>
+<h1>Fanatics Silicon</h1>
+<div class="sub">Sistema de Fórmulas W-X-Y-Z</div>
+<div class="info">
+  <div class="info-item"><label>Código</label><value>${f.codigo}</value></div>
+  <div class="info-item"><label>Color</label><value>${f.nombre}</value></div>
+  <div class="info-item"><label>Categoría</label><value>${f.categoria}</value></div>
+  <div class="info-item"><label>Fecha</label><value>${fecha}</value></div>
+</div>
+<div class="sec">Composición Base</div>
+<table>
+  <thead><tr><th>Componente</th><th style="text-align:right">Proporción</th><th style="text-align:right">%</th></tr></thead>
+  <tbody>${ingsHTML}</tbody>
+</table>
+<div class="sec">Aditivos (W · X · Y)</div>
+<div style="display:flex;gap:12px;margin:16px 0;">${adtHTML}</div>
+<div class="sec">Comentarios (Z)</div>
+${comentHTML}
+<div style="margin-top:40px;padding-top:16px;border-top:2px solid #111;text-align:center;font-size:11px;color:#999;">
+  Fanatics Silicon Production · ${fecha}
+</div>
+</body></html>`;
+
+    const blob = new Blob([html], { type: 'text/html' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = `Etiqueta_${f.codigo !== 'N/A' ? f.codigo : f.nombre}_WXYZ.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function nuevaBusqueda() {
+    document.getElementById('resultado').style.display = 'none';
+    document.getElementById('busqueda').value = '';
+    document.getElementById('mensajeError').innerHTML = '';
+    document.getElementById('busqueda').focus();
+}
+
+document.getElementById('busqueda').addEventListener('keypress', e => {
+    if (e.key === 'Enter') buscar();
+});
+
+// Iniciar
+cargarJSON();
+</script>
+</body>
+</html>
