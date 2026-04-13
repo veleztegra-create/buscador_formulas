@@ -17,6 +17,7 @@
             --tegra-muted: #888888;
             --tegra-success: #2d6a4f;
             --tegra-warning: #d4a017;
+            --tegra-accent: #3d7fff;
         }
 
         * {
@@ -33,7 +34,7 @@
             line-height: 1.6;
         }
 
-        /* Header Clean Tegra Style */
+        /* Header - Solo Logo Oficial */
         .header {
             background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
             border-bottom: 3px solid var(--tegra-red);
@@ -46,7 +47,7 @@
         .header-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -58,40 +59,21 @@
             gap: 15px;
         }
 
-        .logo-hex {
-            width: 50px;
-            height: 50px;
-            background: var(--tegra-red);
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Oswald', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: white;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-hex:hover {
-            transform: rotate(30deg);
-        }
-
-        /* Tegra Global Logo */
+        /* Solo logo oficial de Tegra */
         .tegra-global-logo {
-            height: 40px;
+            height: 45px;
             width: auto;
             filter: brightness(0) invert(1);
-            margin-right: 10px;
         }
 
         .brand-text h1 {
             font-family: 'Oswald', sans-serif;
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 3px;
             line-height: 1;
+            color: var(--tegra-text);
         }
 
         .brand-text span {
@@ -100,14 +82,137 @@
         }
 
         .brand-sub {
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--tegra-muted);
             margin-top: 2px;
         }
 
-        /* System Selector Clean */
+        /* Print Queue Panel */
+        .queue-panel {
+            background: var(--tegra-card);
+            border: 1px solid var(--tegra-border);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .queue-panel.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .queue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .queue-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--tegra-text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .queue-count {
+            background: var(--tegra-red);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .queue-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .queue-item {
+            background: var(--tegra-bg);
+            border: 1px solid var(--tegra-border);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .queue-item .remove {
+            color: var(--tegra-red);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .queue-item .remove:hover {
+            color: #ff4444;
+        }
+
+        .queue-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-queue-print {
+            flex: 1;
+            padding: 12px;
+            background: var(--tegra-success);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        .btn-queue-print:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-clear-queue {
+            padding: 12px 20px;
+            background: transparent;
+            border: 1px solid var(--tegra-border);
+            color: var(--tegra-muted);
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .btn-clear-queue:hover {
+            border-color: var(--tegra-red);
+            color: var(--tegra-red);
+        }
+
+        /* System Selector */
         .system-selector {
             position: relative;
         }
@@ -144,7 +249,7 @@
             padding: 0 20px;
         }
 
-        /* Status Bar Minimal */
+        /* Status Bar */
         .status-bar {
             display: flex;
             align-items: center;
@@ -177,7 +282,7 @@
             50% { opacity: 0.4; }
         }
 
-        /* Search Section Clean */
+        /* Search Section */
         .search-section {
             background: var(--tegra-surface);
             border: 1px solid var(--tegra-border);
@@ -358,6 +463,37 @@
         .cat-PIGMENTO{ background: #d4a017; }
         .cat-CLEAR   { background: #4a4e69; }
 
+        /* Add to Queue Button */
+        .add-queue-btn {
+            margin-left: auto;
+            padding: 12px 24px;
+            background: var(--tegra-accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-queue-btn:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .add-queue-btn:disabled {
+            background: #333;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Color Swatch Section */
         .color-swatch-section {
             background: var(--tegra-surface);
@@ -399,11 +535,6 @@
             display: inline-block;
         }
 
-        .no-color {
-            color: var(--tegra-muted);
-            font-style: italic;
-        }
-
         /* Sections */
         .sections-wrap {
             background: var(--tegra-surface);
@@ -431,7 +562,7 @@
             border-bottom: 1px solid var(--tegra-border);
         }
 
-        /* Ingredients Table Clean */
+        /* Ingredients Table */
         .ing-table {
             width: 100%;
             border-collapse: collapse;
@@ -483,11 +614,6 @@
             transition: all 0.2s;
         }
 
-        .aditivo-card:hover {
-            border-color: var(--tegra-border);
-            transform: translateY(-2px);
-        }
-
         .aditivo-card.has {
             border-color: var(--tegra-success);
             background: rgba(45, 106, 79, 0.1);
@@ -495,25 +621,6 @@
 
         .aditivo-card.zero {
             opacity: 0.5;
-        }
-
-        .aditivo-card.substituted {
-            border-color: var(--tegra-warning);
-            background: rgba(212, 160, 23, 0.1);
-        }
-
-        .substitute-badge {
-            position: absolute;
-            top: -8px;
-            right: 10px;
-            background: var(--tegra-warning);
-            color: #000;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .adt-col {
@@ -545,106 +652,6 @@
 
         .aditivo-card.has .adt-val { color: #52b788; }
         .aditivo-card.zero .adt-val { color: var(--tegra-muted); }
-        .aditivo-card.substituted .adt-val { color: var(--tegra-warning); }
-
-        /* Substitution Manager */
-        .substitution-panel {
-            background: var(--tegra-card);
-            border: 1px solid var(--tegra-border);
-            border-radius: 6px;
-            padding: 20px;
-            margin-top: 20px;
-            margin-bottom: 30px;
-        }
-
-        .substitution-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            cursor: pointer;
-        }
-
-        .substitution-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--tegra-warning);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .substitution-toggle {
-            background: none;
-            border: none;
-            color: var(--tegra-muted);
-            cursor: pointer;
-            font-size: 20px;
-            transition: transform 0.3s;
-        }
-
-        .substitution-toggle.open {
-            transform: rotate(180deg);
-        }
-
-        .substitution-content {
-            display: none;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .substitution-content.open {
-            display: grid;
-        }
-
-        .substitute-control {
-            background: var(--tegra-bg);
-            border: 1px solid var(--tegra-border);
-            border-radius: 6px;
-            padding: 15px;
-        }
-
-        .substitute-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--tegra-muted);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .substitute-select {
-            width: 100%;
-            background: var(--tegra-surface);
-            border: 1px solid var(--tegra-border);
-            color: var(--tegra-text);
-            padding: 10px;
-            border-radius: 4px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .substitute-select:focus {
-            outline: none;
-            border-color: var(--tegra-warning);
-        }
-
-        .substitute-select option {
-            background: var(--tegra-surface);
-            color: var(--tegra-text);
-            padding: 8px;
-        }
-
-        .original-name {
-            font-size: 12px;
-            color: var(--tegra-muted);
-            margin-top: 8px;
-            font-style: italic;
-        }
 
         /* Comments */
         .comentario-box {
@@ -670,31 +677,6 @@
             margin-top: 30px;
             padding-top: 30px;
             border-top: 1px solid var(--tegra-border);
-        }
-
-        .btn-dl {
-            flex: 1;
-            padding: 16px;
-            background: var(--tegra-red);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: 'Oswald', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-dl:hover {
-            background: var(--tegra-red-hover);
-            transform: translateY(-1px);
         }
 
         .btn-new {
@@ -731,10 +713,12 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .aditivos-grid, .substitution-content { grid-template-columns: 1fr; }
+            .aditivos-grid { grid-template-columns: 1fr; }
             .formula-header { flex-direction: column; text-align: center; }
+            .formula-header .add-queue-btn { margin: 15px 0 0 0; width: 100%; }
             .color-swatch-section { flex-direction: column; text-align: center; }
             .actions { flex-direction: column; }
+            .queue-actions { flex-direction: column; }
         }
     </style>
 </head>
@@ -744,10 +728,9 @@
         <div class="header-content">
             <div class="brand">
                 <img src="https://www.tegraglobal.com/images/logo.png" alt="Tegra Global" class="tegra-global-logo">
-                <div class="logo-hex">T</div>
                 <div class="brand-text">
                     <div class="brand-sub">Formulation System</div>
-                    <h1>Tegra <span>Color Lab</span></h1>
+                    <h1>Color <span>Lab</span></h1>
                 </div>
             </div>
             
@@ -762,6 +745,25 @@
     </header>
 
     <div class="main-container">
+
+        <!-- Print Queue Panel -->
+        <div class="queue-panel" id="queuePanel">
+            <div class="queue-header">
+                <div class="queue-title">
+                    Print Queue
+                    <span class="queue-count" id="queueCount">0</span>
+                </div>
+            </div>
+            <div class="queue-items" id="queueItems">
+                <!-- Items dinámicos aquí -->
+            </div>
+            <div class="queue-actions">
+                <button class="btn-queue-print" onclick="imprimirCola()">
+                    🖨️ Print Labels (<span id="queueCountBtn">0</span>)
+                </button>
+                <button class="btn-clear-queue" onclick="limpiarCola()">Clear All</button>
+            </div>
+        </div>
 
         <div class="status-bar" id="statusBar">
             <div class="status-dot loading" id="statusDot"></div>
@@ -791,9 +793,11 @@
                     <div class="formula-name" id="resNombre">—</div>
                     <div class="cat-badge" id="resCategoria">—</div>
                 </div>
+                <button class="add-queue-btn" id="addQueueBtn" onclick="agregarACola()">
+                    + Add to Print Queue
+                </button>
             </div>
 
-            <!-- Color Swatch Display -->
             <div class="color-swatch-section" id="colorSection" style="display: none;">
                 <div class="color-swatch" id="colorSwatch"></div>
                 <div class="color-info">
@@ -812,50 +816,6 @@
                 <div class="section">
                     <div class="section-title">System Additives (W-X-Y)</div>
                     <div class="aditivos-grid" id="aditivosContainer"></div>
-                    
-                    <!-- Substitution Panel -->
-                    <div class="substitution-panel">
-                        <div class="substitution-header" onclick="toggleSubstitutions()">
-                            <div class="substitution-title">
-                                ⚠ Substitute Additives (Emergency Use)
-                            </div>
-                            <button class="substitution-toggle" id="subToggle">▼</button>
-                        </div>
-                        <div class="substitution-content" id="subContent">
-                            <div class="substitute-control">
-                                <div class="substitute-label">Column W Substitute</div>
-                                <select class="substitute-select" id="subW" onchange="aplicarSustitucion()">
-                                    <option value="">Use Original (Catalyst)</option>
-                                    <option value="ALT CATALYST PRO">ALT CATALYST PRO</option>
-                                    <option value="FAST CURE X1">FAST CURE X1</option>
-                                    <option value="ECONO CAT">ECONO CAT</option>
-                                </select>
-                                <div class="original-name">Original: LIBRA CATALYST</div>
-                            </div>
-                            
-                            <div class="substitute-control">
-                                <div class="substitute-label">Column X Substitute</div>
-                                <select class="substitute-select" id="subX" onchange="aplicarSustitucion()">
-                                    <option value="">Use Original (Retarder)</option>
-                                    <option value="SLOW RETARDER">SLOW RETARDER</option>
-                                    <option value="FLOW AGENT">FLOW AGENT</option>
-                                    <option value="EXTENDER">EXTENDER</option>
-                                </select>
-                                <div class="original-name">Original: LIBRA RETARDER</div>
-                            </div>
-                            
-                            <div class="substitute-control">
-                                <div class="substitute-label">Column Y Substitute</div>
-                                <select class="substitute-select" id="subY" onchange="aplicarSustitucion()">
-                                    <option value="">Use Original (Matte)</option>
-                                    <option value="MATTE FINISH">MATTE FINISH</option>
-                                    <option value="FLAT AGENT">FLAT AGENT</option>
-                                    <option value="GLOSS REDUCER">GLOSS REDUCER</option>
-                                </select>
-                                <div class="original-name">Original: LIBRA MATTE</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="section">
@@ -864,7 +824,6 @@
                 </div>
 
                 <div class="actions">
-                    <button class="btn-dl" onclick="descargarHTML()">Download Production Label (4x)</button>
                     <button class="btn-new" onclick="nuevaBusqueda()">New Search</button>
                 </div>
 
@@ -884,7 +843,7 @@ let SISTEMA_ACTUAL = 'silicon';
 let DATABASE = [];
 let COLORES_NFL = [];
 let formulaActual = null;
-let sustituciones = { w: null, x: null, y: null };
+let colaImpresion = []; // Array para guardar múltiples fórmulas
 
 const COL_INGREDIENTES = {
     Column12: 'LIBRA BARRIER CLEAR PART A',
@@ -906,8 +865,9 @@ const COL_ADITIVOS = {
     Column25: { col: 'Y', nombre: 'LIBRA MATTE' },
 };
 
-// URL de la base de datos de colores NFL
 const COLORES_NFL_URL = 'https://raw.githubusercontent.com/veleztegra-create/tegra-spec-manager/cLabelformulas/COLORES%20NFL%20FANATICS.json';
+const WARNING_LABEL_URL = 'https://raw.githubusercontent.com/veleztegra-create/tegra-spec-manager/5f7a1ce3cb0c6b5a57537505b44f2da8e97277ba/assets/color-lab-warning-label.svg';
+const TEGRA_LOGO_URL = 'https://www.tegraglobal.com/images/logo.png';
 
 function isNum(v) { return typeof v === 'number' && !isNaN(v); }
 function pct(v) { return isNum(v) ? (v * 100).toFixed(2) + '%' : null; }
@@ -952,14 +912,10 @@ function mapearFila(row) {
     };
 }
 
-// Cargar base de datos de colores NFL
 async function cargarColoresNFL() {
     try {
         const response = await fetch(COLORES_NFL_URL);
         const text = await response.text();
-        
-        // El JSON tiene múltiples objetos, necesitamos parsearlos correctamente
-        // Buscar todos los arrays de colores en el texto
         const colorMatches = text.match(/"colors":\s*\[([\s\S]*?)\](?=\s*[,}])/g);
         
         if (colorMatches) {
@@ -969,13 +925,10 @@ async function cargarColoresNFL() {
                     if (Array.isArray(colorsArray)) {
                         COLORES_NFL = COLORES_NFL.concat(colorsArray);
                     }
-                } catch (e) {
-                    console.log('Error parsing color block:', e);
-                }
+                } catch (e) {}
             });
         }
         
-        // También buscar objetos individuales de color sueltos
         const individualMatches = text.match(/\{\s*"index":\s*\d+[^}]*"name":\s*"[^"]*"[^}]*"hex":\s*"#[A-Fa-f0-9]{6}"[^}]*\}/g);
         if (individualMatches) {
             individualMatches.forEach(match => {
@@ -987,32 +940,26 @@ async function cargarColoresNFL() {
                 } catch (e) {}
             });
         }
-        
-        console.log(`Loaded ${COLORES_NFL.length} NFL colors`);
     } catch (err) {
         console.error('Error loading NFL colors:', err);
     }
 }
 
-// Buscar color en la base de datos NFL
 function buscarColorNFL(nombreColor) {
     if (!nombreColor || COLORES_NFL.length === 0) return null;
     
     const nombreBusqueda = nombreColor.toUpperCase().trim();
     
-    // Búsqueda exacta primero
     let encontrado = COLORES_NFL.find(c => 
         c.name && c.name.toUpperCase().trim() === nombreBusqueda
     );
     
     if (!encontrado) {
-        // Búsqueda parcial (si el nombre contiene el código o viceversa)
         encontrado = COLORES_NFL.find(c => {
             if (!c.name) return false;
             const nameUpper = c.name.toUpperCase();
             return nameUpper.includes(nombreBusqueda) || 
                    nombreBusqueda.includes(nameUpper) ||
-                   // Buscar por código numérico dentro del nombre (ej: "76I" en "UNIVERSITY YELLOW 76I")
                    (nombreBusqueda.match(/\d{2}[A-Z]/) && nameUpper.includes(nombreBusqueda.match(/\d{2}[A-Z]/)[0]));
         });
     }
@@ -1050,7 +997,7 @@ async function cargarJSON() {
         buildChips();
 
         dot.className = 'status-dot ok';
-        text.textContent = `System ready · ${DATABASE.length} formulas · ${COLORES_NFL.length} color refs loaded`;
+        text.textContent = `System ready · ${DATABASE.length} formulas · ${COLORES_NFL.length} color refs`;
         input.disabled = false;
         btn.disabled = false;
         input.focus();
@@ -1058,32 +1005,7 @@ async function cargarJSON() {
     } catch (err) {
         dot.className = 'status-dot error';
         text.textContent = `Error loading ${SISTEMAS[SISTEMA_ACTUAL].archivo}: ${err.message}`;
-        
-        // Demo fallback
-        if (SISTEMA_ACTUAL !== 'silicon') {
-            DATABASE = getDemoData();
-            buildChips();
-            dot.className = 'status-dot ok';
-            text.textContent = `Demo mode · ${DATABASE.length} sample formulas`;
-            input.disabled = false;
-            btn.disabled = false;
-        }
     }
-}
-
-function getDemoData() {
-    return [{
-        codigo: 'TEST-01',
-        nombre: 'SAMPLE RED',
-        categoria: 'PIGMENTO',
-        ingredientes: [{ nombre: 'RED PIGMENT', valor: 0.5, porcentaje: '50.00%' }],
-        aditivos: {
-            columna_w: { original: 'CATALYST', nombre: 'CATALYST', valor: '3.00', unidad: '%', esSustituto: false },
-            columna_x: { original: 'RETARDER', nombre: 'RETARDER', valor: '2.00', unidad: '%', esSustituto: false },
-            columna_y: { original: 'MATTE', nombre: 'MATTE', valor: '0', unidad: '%', esSustituto: false }
-        },
-        comentarios: 'Demo formula for testing'
-    }];
 }
 
 function buildChips() {
@@ -1121,8 +1043,6 @@ function buscar() {
     });
 
     if (formulaActual) {
-        // Reset substitutions on new search
-        resetSustituciones();
         mostrarResultado(formulaActual);
         errorDiv.style.display = 'none';
     } else {
@@ -1130,86 +1050,6 @@ function buscar() {
         errorDiv.innerHTML = `Formula not found: "<strong>${query}</strong>"`;
         document.getElementById('resultado').style.display = 'none';
     }
-}
-
-function resetSustituciones() {
-    sustituciones = { w: null, x: null, y: null };
-    document.getElementById('subW').value = '';
-    document.getElementById('subX').value = '';
-    document.getElementById('subY').value = '';
-    
-    // Reset visual state
-    if (formulaActual) {
-        ['w','x','y'].forEach(col => {
-            formulaActual.aditivos[`columna_${col}`].nombre = formulaActual.aditivos[`columna_${col}`].original;
-            formulaActual.aditivos[`columna_${col}`].esSustituto = false;
-        });
-    }
-}
-
-function toggleSubstitutions() {
-    const content = document.getElementById('subContent');
-    const toggle = document.getElementById('subToggle');
-    content.classList.toggle('open');
-    toggle.classList.toggle('open');
-}
-
-function aplicarSustitucion() {
-    if (!formulaActual) return;
-    
-    const subW = document.getElementById('subW').value;
-    const subX = document.getElementById('subX').value;
-    const subY = document.getElementById('subY').value;
-    
-    if (subW) {
-        formulaActual.aditivos.columna_w.nombre = subW;
-        formulaActual.aditivos.columna_w.esSustituto = true;
-    } else {
-        formulaActual.aditivos.columna_w.nombre = formulaActual.aditivos.columna_w.original;
-        formulaActual.aditivos.columna_w.esSustituto = false;
-    }
-    
-    if (subX) {
-        formulaActual.aditivos.columna_x.nombre = subX;
-        formulaActual.aditivos.columna_x.esSustituto = true;
-    } else {
-        formulaActual.aditivos.columna_x.nombre = formulaActual.aditivos.columna_x.original;
-        formulaActual.aditivos.columna_x.esSustituto = false;
-    }
-    
-    if (subY) {
-        formulaActual.aditivos.columna_y.nombre = subY;
-        formulaActual.aditivos.columna_y.esSustituto = true;
-    } else {
-        formulaActual.aditivos.columna_y.nombre = formulaActual.aditivos.columna_y.original;
-        formulaActual.aditivos.columna_y.esSustituto = false;
-    }
-    
-    renderAditivos();
-}
-
-function renderAditivos() {
-    const adDiv = document.getElementById('aditivosContainer');
-    const cols = [
-        { key: 'columna_w', label: 'W' },
-        { key: 'columna_x', label: 'X' },
-        { key: 'columna_y', label: 'Y' },
-    ];
-    
-    adDiv.innerHTML = cols.map(({ key, label }) => {
-        const adt = formulaActual.aditivos[key];
-        const hasVal = parseFloat(adt.valor) > 0;
-        const isSub = adt.esSustituto;
-        const display = `${adt.valor}${adt.unidad}`;
-        
-        return `
-            <div class="aditivo-card ${hasVal ? 'has' : 'zero'} ${isSub ? 'substituted' : ''}">
-                ${isSub ? '<div class="substitute-badge">ALT</div>' : ''}
-                <div class="adt-col">Column ${label}</div>
-                <div class="adt-name">${adt.nombre}</div>
-                <div class="adt-val">${display}</div>
-            </div>`;
-    }).join('');
 }
 
 function mostrarResultado(f) {
@@ -1220,7 +1060,13 @@ function mostrarResultado(f) {
     badge.textContent = f.categoria;
     badge.className = `cat-badge cat-${f.categoria}`;
 
-    // Buscar y mostrar color NFL
+    // Verificar si ya está en cola para deshabilitar botón
+    const btn = document.getElementById('addQueueBtn');
+    const yaEnCola = colaImpresion.some(item => item.codigo === f.codigo && item.nombre === f.nombre);
+    btn.disabled = yaEnCola;
+    btn.textContent = yaEnCola ? '✓ In Queue' : '+ Add to Print Queue';
+    btn.style.background = yaEnCola ? '#2d6a4f' : '#3d7fff';
+
     const colorNFL = buscarColorNFL(f.nombre);
     const colorSection = document.getElementById('colorSection');
     
@@ -1230,9 +1076,8 @@ function mostrarResultado(f) {
         document.getElementById('colorHex').textContent = colorNFL.hex.toUpperCase();
         colorSection.style.display = 'flex';
     } else {
-        // Si no hay color en NFL, ocultar la sección o mostrar gris
         document.getElementById('colorSwatch').style.backgroundColor = '#333';
-        document.getElementById('colorName').textContent = 'No color reference found';
+        document.getElementById('colorName').textContent = 'No color reference';
         document.getElementById('colorHex').textContent = 'N/A';
         colorSection.style.display = 'flex';
     }
@@ -1248,14 +1093,30 @@ function mostrarResultado(f) {
         </tr>
     `).join('');
 
-    renderAditivos();
+    const adDiv = document.getElementById('aditivosContainer');
+    const cols = [
+        { key: 'columna_w', label: 'W' },
+        { key: 'columna_x', label: 'X' },
+        { key: 'columna_y', label: 'Y' },
+    ];
+    
+    adDiv.innerHTML = cols.map(({ key, label }) => {
+        const adt = f.aditivos[key];
+        const hasVal = parseFloat(adt.valor) > 0;
+        return `
+            <div class="aditivo-card ${hasVal ? 'has' : 'zero'}">
+                <div class="adt-col">Column ${label}</div>
+                <div class="adt-name">${adt.nombre}</div>
+                <div class="adt-val">${adt.valor}${adt.unidad}</div>
+            </div>`;
+    }).join('');
 
     const comDiv = document.getElementById('comentariosDisplay');
     if (f.comentarios && f.comentarios !== 'N/A') {
         comDiv.textContent = f.comentarios;
         comDiv.className = 'comentario-box';
     } else {
-        comDiv.textContent = 'No additional technical notes for this formula';
+        comDiv.textContent = 'No additional technical notes';
         comDiv.className = 'comentario-box na';
     }
 
@@ -1263,138 +1124,313 @@ function mostrarResultado(f) {
     document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function descargarHTML() {
+// SISTEMA DE COLA DE IMPRESIÓN
+function agregarACola() {
     if (!formulaActual) return;
     
-    const f = formulaActual;
-    const fecha = new Date().toLocaleDateString('en-US');
+    // Verificar si ya existe
+    const existe = colaImpresion.some(item => 
+        item.codigo === formulaActual.codigo && item.nombre === formulaActual.nombre
+    );
+    
+    if (!existe) {
+        // Crear copia profunda para no afectar la original
+        const itemCopia = JSON.parse(JSON.stringify(formulaActual));
+        colaImpresion.push(itemCopia);
+        actualizarVistaCola();
+        
+        // Actualizar botón
+        const btn = document.getElementById('addQueueBtn');
+        btn.disabled = true;
+        btn.textContent = '✓ In Queue';
+        btn.style.background = '#2d6a4f';
+    }
+}
+
+function eliminarDeCola(index) {
+    colaImpresion.splice(index, 1);
+    actualizarVistaCola();
+    
+    // Actualizar botón si la fórmula actual es la que se eliminó
+    if (formulaActual) {
+        const btn = document.getElementById('addQueueBtn');
+        const yaEnCola = colaImpresion.some(item => 
+            item.codigo === formulaActual.codigo && item.nombre === formulaActual.nombre
+        );
+        btn.disabled = yaEnCola;
+        btn.textContent = yaEnCola ? '✓ In Queue' : '+ Add to Print Queue';
+        btn.style.background = yaEnCola ? '#2d6a4f' : '#3d7fff';
+    }
+}
+
+function limpiarCola() {
+    colaImpresion = [];
+    actualizarVistaCola();
+    
+    if (formulaActual) {
+        const btn = document.getElementById('addQueueBtn');
+        btn.disabled = false;
+        btn.textContent = '+ Add to Print Queue';
+        btn.style.background = '#3d7fff';
+    }
+}
+
+function actualizarVistaCola() {
+    const panel = document.getElementById('queuePanel');
+    const items = document.getElementById('queueItems');
+    const count = document.getElementById('queueCount');
+    const countBtn = document.getElementById('queueCountBtn');
+    
+    if (colaImpresion.length === 0) {
+        panel.classList.remove('active');
+        return;
+    }
+    
+    panel.classList.add('active');
+    count.textContent = colaImpresion.length;
+    countBtn.textContent = colaImpresion.length;
+    
+    items.innerHTML = colaImpresion.map((item, index) => `
+        <div class="queue-item">
+            <strong>${item.codigo !== 'N/A' ? item.codigo + ' · ' : ''}${item.nombre}</strong>
+            <span class="remove" onclick="eliminarDeCola(${index})">×</span>
+        </div>
+    `).join('');
+}
+
+// IMPRESIÓN MÚLTIPLE - 4 POR PÁGINA
+function imprimirCola() {
+    if (colaImpresion.length === 0) return;
+    
     const sistema = SISTEMAS[SISTEMA_ACTUAL];
-    const tieneSustituciones = f.aditivos.columna_w.esSustituto || 
-                               f.aditivos.columna_x.esSustituto || 
-                               f.aditivos.columna_y.esSustituto;
-    const colorNFL = buscarColorNFL(f.nombre);
-    const colorHex = colorNFL ? colorNFL.hex : '#cccccc';
-    const colorName = colorNFL ? colorNFL.name : f.nombre;
-
-    // URL del warning label
-    const warningUrl = 'https://raw.githubusercontent.com/veleztegra-create/tegra-spec-manager/5f7a1ce3cb0c6b5a57537505b44f2da8e97277ba/assets/color-lab-warning-label.svg';
-    const tegraLogoUrl = 'https://www.tegraglobal.com/images/logo.png';
-
-    // Generar HTML de una etiqueta individual
-    function generarEtiquetaHTML() {
+    const fecha = new Date().toLocaleDateString('en-US');
+    
+    // Generar HTML para cada etiqueta
+    const etiquetasHTML = colaImpresion.map((f, index) => {
+        const colorNFL = buscarColorNFL(f.nombre);
+        const colorHex = colorNFL ? colorNFL.hex : '#cccccc';
+        const colorName = colorNFL ? colorNFL.name : f.nombre;
+        
         const ingsHTML = f.ingredientes.map(ing => `
             <tr style="border-bottom: 1px solid #ddd;">
-                <td style="padding: 6px 8px; font-size: 10px; font-weight: 600;">${ing.nombre}</td>
-                <td style="padding: 6px 8px; text-align: right; font-family: monospace; font-size: 9px; color: #666;">${ing.valor.toFixed ? ing.valor.toFixed(4) : ing.valor}</td>
-                <td style="padding: 6px 8px; text-align: right; font-weight: 700; font-size: 11px; color: ${sistema.color};">${ing.porcentaje}</td>
+                <td style="padding: 4px 6px; font-size: 9px; font-weight: 600;">${ing.nombre}</td>
+                <td style="padding: 4px 6px; text-align: right; font-family: monospace; font-size: 8px; color: #666;">${ing.valor.toFixed ? ing.valor.toFixed(4) : ing.valor}</td>
+                <td style="padding: 4px 6px; text-align: right; font-weight: 700; font-size: 10px; color: ${sistema.color};">${ing.porcentaje}</td>
             </tr>`).join('');
 
         const cols = ['columna_w','columna_x','columna_y'];
         const adtHTML = cols.map(key => {
             const a = f.aditivos[key];
-            const isSub = a.esSustituto;
-            const borderColor = isSub ? '#d4a017' : (parseFloat(a.valor) > 0 ? '#2d6a4f' : '#c41e3a');
-            const bgColor = isSub ? '#fffbeb' : (parseFloat(a.valor) > 0 ? '#f0fdf4' : '#fef2f2');
-            const textColor = isSub ? '#d4a017' : (parseFloat(a.valor) > 0 ? '#2d6a4f' : '#666');
-            const badge = isSub ? '<span style="background: #d4a017; color: #000; font-size: 8px; padding: 1px 4px; border-radius: 3px; font-weight: 700;">ALT</span>' : '';
+            const hasVal = parseFloat(a.valor) > 0;
+            const borderColor = hasVal ? '#2d6a4f' : '#c41e3a';
+            const bgColor = hasVal ? '#f0fdf4' : '#fef2f2';
+            const textColor = hasVal ? '#2d6a4f' : '#666';
             
-            return `<div style="flex: 1; padding: 8px 4px; background: ${bgColor}; border: 1px solid ${borderColor}; border-radius: 4px; text-align: center; margin: 0 2px;">
-                <div style="font-size: 8px; letter-spacing: 1px; color: #666; margin-bottom: 2px; font-weight: 700;">${key.slice(-1).toUpperCase()}</div>
-                <div style="font-size: 9px; font-weight: 700; margin-bottom: 4px; line-height: 1.2;">${a.nombre}</div>
-                <div style="font-size: 18px; font-weight: 900; color: ${textColor}; font-family: 'Oswald', sans-serif;">${a.valor}${a.unidad}</div>
-                ${badge}
+            return `<div style="flex: 1; padding: 6px 2px; background: ${bgColor}; border: 1px solid ${borderColor}; border-radius: 3px; text-align: center; margin: 0 2px;">
+                <div style="font-size: 7px; letter-spacing: 1px; color: #666; margin-bottom: 1px; font-weight: 700;">${key.slice(-1).toUpperCase()}</div>
+                <div style="font-size: 8px; font-weight: 700; margin-bottom: 2px; line-height: 1.1; word-break: break-word;">${a.nombre}</div>
+                <div style="font-size: 14px; font-weight: 900; color: ${textColor}; font-family: 'Oswald', sans-serif;">${a.valor}${a.unidad}</div>
             </div>`;
         }).join('');
 
         return `
-        <div class="label-box">
-            <!-- Warning Label Top Right -->
-            <div style="position: absolute; top: 8px; right: 8px; width: 45px; height: 45px; z-index: 10;">
-                <img src="${warningUrl}" style="width: 100%; height: 100%;" alt="Warning">
+        <div class="label-item">
+            <div style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; z-index: 10;">
+                <img src="${WARNING_LABEL_URL}" style="width: 100%; height: 100%;" alt="Warning">
             </div>
             
-            <!-- Header -->
-            <div style="display: flex; align-items: center; margin-bottom: 8px; padding-right: 50px;">
-                <img src="${tegraLogoUrl}" style="height: 25px; width: auto; margin-right: 8px; filter: brightness(0);" alt="Tegra">
+            <div style="display: flex; align-items: center; margin-bottom: 6px; padding-right: 45px;">
+                <img src="${TEGRA_LOGO_URL}" style="height: 22px; width: auto; margin-right: 8px; filter: brightness(0);" alt="Tegra">
                 <div>
-                    <div style="font-size: 8px; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">Tegra Color Lab</div>
-                    <div style="font-size: 14px; font-weight: 900; color: #111; letter-spacing: -0.5px; font-family: 'Oswald', sans-serif;">${f.codigo !== 'N/A' ? f.codigo : '—'}</div>
+                    <div style="font-size: 7px; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">Color Lab · ${sistema.nombre}</div>
+                    <div style="font-size: 12px; font-weight: 900; color: #111; letter-spacing: -0.5px; font-family: 'Oswald', sans-serif;">${f.codigo !== 'N/A' ? f.codigo : '—'}</div>
                 </div>
             </div>
 
-            <!-- Color Swatch -->
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; padding: 8px; background: #f5f5f5; border-radius: 6px; border: 1px solid #ddd;">
-                <div style="width: 40px; height: 40px; border-radius: 50%; background: ${colorHex}; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.2); flex-shrink: 0;"></div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding: 6px; background: #f5f5f5; border-radius: 4px; border: 1px solid #ddd;">
+                <div style="width: 35px; height: 35px; border-radius: 50%; background: ${colorHex}; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.2); flex-shrink: 0;"></div>
                 <div style="flex: 1; min-width: 0;">
-                    <div style="font-size: 11px; font-weight: 700; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: 'Oswald', sans-serif; text-transform: uppercase;">${colorName}</div>
-                    <div style="font-family: 'Courier New', monospace; font-size: 10px; color: #666; font-weight: 600;">${colorHex}</div>
+                    <div style="font-size: 10px; font-weight: 700; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: 'Oswald', sans-serif; text-transform: uppercase;">${colorName}</div>
+                    <div style="font-family: 'Courier New', monospace; font-size: 9px; color: #666; font-weight: 600;">${colorHex}</div>
                 </div>
             </div>
 
-            <!-- Category & Date -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 9px;">
-                <span style="background: ${sistema.color}; color: #fff; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">${f.categoria}</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 8px;">
+                <span style="background: ${sistema.color}; color: #fff; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; font-size: 8px;">${f.categoria}</span>
                 <span style="color: #666; font-weight: 600;">${fecha}</span>
             </div>
 
-            <!-- Ingredients -->
-            <div style="font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; color: ${sistema.color}; border-bottom: 1px solid ${sistema.color}; padding-bottom: 2px;">Composition</div>
-            <table style="width: 100%; border-collapse: collapse; margin-bottom: 8px;">
+            <div style="font-size: 8px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; color: ${sistema.color}; border-bottom: 1px solid ${sistema.color}; padding-bottom: 2px;">Composition</div>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 6px;">
                 <thead>
                     <tr style="background: #111; color: #fff;">
-                        <th style="padding: 4px; text-align: left; font-size: 8px; text-transform: uppercase; letter-spacing: 1px;">Component</th>
-                        <th style="padding: 4px; text-align: right; font-size: 8px;">Ratio</th>
-                        <th style="padding: 4px; text-align: right; font-size: 8px;">%</th>
+                        <th style="padding: 3px; text-align: left; font-size: 7px; text-transform: uppercase; letter-spacing: 1px;">Component</th>
+                        <th style="padding: 3px; text-align: right; font-size: 7px;">Ratio</th>
+                        <th style="padding: 3px; text-align: right; font-size: 7px;">%</th>
                     </tr>
                 </thead>
                 <tbody>${ingsHTML}</tbody>
             </table>
 
-            <!-- Additives -->
-            <div style="font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; color: ${sistema.color};">Additives W-X-Y</div>
-            <div style="display: flex; gap: 4px; margin-bottom: 8px;">${adtHTML}</div>
+            <div style="font-size: 8px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; color: ${sistema.color};">Additives W-X-Y</div>
+            <div style="display: flex; gap: 3px; margin-bottom: 6px;">${adtHTML}</div>
 
-            <!-- Comments -->
             ${f.comentarios && f.comentarios !== 'N/A' ? `
-            <div style="font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; color: ${sistema.color};">Notes</div>
-            <div style="background: #fefce8; border: 1px solid #eab308; border-radius: 4px; padding: 6px; font-size: 9px; color: #854d0e; font-weight: 600;">${f.comentarios}</div>
+            <div style="font-size: 7px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; color: ${sistema.color};">Notes</div>
+            <div style="background: #fefce8; border: 1px solid #eab308; border-radius: 3px; padding: 4px; font-size: 8px; color: #854d0e; font-weight: 600; line-height: 1.3;">${f.comentarios}</div>
             ` : ''}
 
-            <!-- Footer -->
-            <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid #ddd; text-align: center; font-size: 8px; color: #999; font-weight: 600; letter-spacing: 1px;">
-                TEGRA COLOR LAB · ${sistema.nombre} · ${fecha}
+            <div style="margin-top: auto; padding-top: 6px; border-top: 1px solid #ddd; text-align: center; font-size: 7px; color: #999; font-weight: 600; letter-spacing: 1px;">
+                TEGRA COLOR LAB · ${fecha}
+            </div>
+        </div>`;
+    }).join('');
+
+    // Calcular cuántas páginas necesitamos
+    const totalEtiquetas = colaImpresion.length;
+    const etiquetasPorPagina = 4;
+    const numPaginas = Math.ceil(totalEtiquetas / etiquetasPorPagina);
+    
+    // Generar páginas
+    let paginasHTML = '';
+    for (let i = 0; i < numPaginas; i++) {
+        const inicio = i * etiquetasPorPagina;
+        const fin = Math.min(inicio + etiquetasPorPagina, totalEtiquetas);
+        const etiquetasDeEstaPagina = colaImpresion.slice(inicio, fin);
+        
+        // Generar grid para esta página (siempre 4 celdas, algunas vacías si es necesario)
+        let gridContent = '';
+        for (let j = 0; j < 4; j++) {
+            if (j < etiquetasDeEstaPagina.length) {
+                // Extraer el HTML de la etiqueta específica del array generado anteriormente
+                const etiquetaIndex = inicio + j;
+                // Volvemos a generar el HTML de esta etiqueta específica
+                const f = etiquetasDeEstaPagina[j];
+                const colorNFL = buscarColorNFL(f.nombre);
+                const colorHex = colorNFL ? colorNFL.hex : '#cccccc';
+                const colorName = colorNFL ? colorNFL.name : f.nombre;
+                
+                const ingsHTML = f.ingredientes.map(ing => `
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 4px 6px; font-size: 9px; font-weight: 600;">${ing.nombre}</td>
+                        <td style="padding: 4px 6px; text-align: right; font-family: monospace; font-size: 8px; color: #666;">${ing.valor.toFixed ? ing.valor.toFixed(4) : ing.valor}</td>
+                        <td style="padding: 4px 6px; text-align: right; font-weight: 700; font-size: 10px; color: ${sistema.color};">${ing.porcentaje}</td>
+                    </tr>`).join('');
+
+                const cols = ['columna_w','columna_x','columna_y'];
+                const adtHTML = cols.map(key => {
+                    const a = f.aditivos[key];
+                    const hasVal = parseFloat(a.valor) > 0;
+                    const borderColor = hasVal ? '#2d6a4f' : '#c41e3a';
+                    const bgColor = hasVal ? '#f0fdf4' : '#fef2f2';
+                    const textColor = hasVal ? '#2d6a4f' : '#666';
+                    
+                    return `<div style="flex: 1; padding: 6px 2px; background: ${bgColor}; border: 1px solid ${borderColor}; border-radius: 3px; text-align: center; margin: 0 2px;">
+                        <div style="font-size: 7px; letter-spacing: 1px; color: #666; margin-bottom: 1px; font-weight: 700;">${key.slice(-1).toUpperCase()}</div>
+                        <div style="font-size: 8px; font-weight: 700; margin-bottom: 2px; line-height: 1.1; word-break: break-word;">${a.nombre}</div>
+                        <div style="font-size: 14px; font-weight: 900; color: ${textColor}; font-family: 'Oswald', sans-serif;">${a.valor}${a.unidad}</div>
+                    </div>`;
+                }).join('');
+
+                gridContent += `
+                <div class="label-item">
+                    <div style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; z-index: 10;">
+                        <img src="${WARNING_LABEL_URL}" style="width: 100%; height: 100%;" alt="Warning">
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; margin-bottom: 6px; padding-right: 45px;">
+                        <img src="${TEGRA_LOGO_URL}" style="height: 22px; width: auto; margin-right: 8px; filter: brightness(0);" alt="Tegra">
+                        <div>
+                            <div style="font-size: 7px; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">Color Lab · ${sistema.nombre}</div>
+                            <div style="font-size: 12px; font-weight: 900; color: #111; letter-spacing: -0.5px; font-family: 'Oswald', sans-serif;">${f.codigo !== 'N/A' ? f.codigo : '—'}</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding: 6px; background: #f5f5f5; border-radius: 4px; border: 1px solid #ddd;">
+                        <div style="width: 35px; height: 35px; border-radius: 50%; background: ${colorHex}; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.2); flex-shrink: 0;"></div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-size: 10px; font-weight: 700; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: 'Oswald', sans-serif; text-transform: uppercase;">${colorName}</div>
+                            <div style="font-family: 'Courier New', monospace; font-size: 9px; color: #666; font-weight: 600;">${colorHex}</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 8px;">
+                        <span style="background: ${sistema.color}; color: #fff; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; font-size: 8px;">${f.categoria}</span>
+                        <span style="color: #666; font-weight: 600;">${fecha}</span>
+                    </div>
+
+                    <div style="font-size: 8px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; color: ${sistema.color}; border-bottom: 1px solid ${sistema.color}; padding-bottom: 2px;">Composition</div>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 6px;">
+                        <thead>
+                            <tr style="background: #111; color: #fff;">
+                                <th style="padding: 3px; text-align: left; font-size: 7px; text-transform: uppercase; letter-spacing: 1px;">Component</th>
+                                <th style="padding: 3px; text-align: right; font-size: 7px;">Ratio</th>
+                                <th style="padding: 3px; text-align: right; font-size: 7px;">%</th>
+                            </tr>
+                        </thead>
+                        <tbody>${ingsHTML}</tbody>
+                    </table>
+
+                    <div style="font-size: 8px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; color: ${sistema.color};">Additives W-X-Y</div>
+                    <div style="display: flex; gap: 3px; margin-bottom: 6px;">${adtHTML}</div>
+
+                    ${f.comentarios && f.comentarios !== 'N/A' ? `
+                    <div style="font-size: 7px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; color: ${sistema.color};">Notes</div>
+                    <div style="background: #fefce8; border: 1px solid #eab308; border-radius: 3px; padding: 4px; font-size: 8px; color: #854d0e; font-weight: 600; line-height: 1.3;">${f.comentarios}</div>
+                    ` : ''}
+
+                    <div style="margin-top: auto; padding-top: 6px; border-top: 1px solid #ddd; text-align: center; font-size: 7px; color: #999; font-weight: 600; letter-spacing: 1px;">
+                        TEGRA COLOR LAB · ${fecha}
+                    </div>
+                </div>`;
+            } else {
+                // Celda vacía para completar la página de 4
+                gridContent += `<div class="label-item empty"></div>`;
+            }
+        }
+        
+        paginasHTML += `
+        <div class="page">
+            <div class="labels-grid-4">
+                ${gridContent}
             </div>
         </div>`;
     }
-
-    // Generar 4 etiquetas
-    const cuatroEtiquetas = Array(4).fill(0).map(() => generarEtiquetaHTML()).join('');
 
     const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Tegra Labels · ${f.codigo} · 4x</title>
+<title>Tegra Color Lab · Print Queue · ${colaImpresion.length} Labels</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap');
     
     @media print {
         .no-print { display: none !important; }
-        body { margin: 0; padding: 0; background: #fff; }
-        .labels-grid { 
+        body { margin: 0; padding: 0; background: white; }
+        .page { 
+            page-break-after: always; 
+            page-break-inside: avoid;
+        }
+        .page:last-child { page-break-after: auto; }
+        .labels-grid-4 { 
             display: grid !important; 
             grid-template-columns: 1fr 1fr !important; 
             grid-template-rows: 1fr 1fr !important;
             gap: 10mm !important;
             padding: 10mm !important;
             height: 277mm !important;
-            page-break-after: always;
+            width: 100% !important;
+            box-sizing: border-box !important;
         }
-        .label-box { 
+        .label-item { 
             border: 2px solid #000 !important; 
-            page-break-inside: avoid;
+            page-break-inside: avoid !important;
             box-shadow: none !important;
+            height: 100% !important;
+            max-height: 128mm !important;
         }
+        .label-item.empty { border: 2px dashed #ccc !important; background: #fafafa !important; }
     }
     
     @page { 
@@ -1421,6 +1457,8 @@ function descargarHTML() {
         z-index: 1000;
         display: flex;
         gap: 10px;
+        flex-direction: column;
+        min-width: 200px;
     }
     
     .no-print button { 
@@ -1440,39 +1478,60 @@ function descargarHTML() {
     
     .no-print button:hover { opacity: 0.9; }
     .no-print button.secondary { background: #666; }
+    .no-print .info {
+        font-size: 14px;
+        color: #666;
+        text-align: center;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
     
-    .labels-grid {
+    .page {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .labels-grid-4 {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
         gap: 20px;
         max-width: 850px;
-        margin: 80px auto 20px;
-        height: calc(100vh - 100px);
+        margin: 0 auto;
+        height: 1100px;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     
-    .label-box {
+    .label-item {
         background: #fff;
         border: 2px solid #111;
         border-radius: 8px;
-        padding: 15px;
+        padding: 12px;
         position: relative;
         display: flex;
         flex-direction: column;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         overflow: hidden;
+        height: 100%;
+        box-sizing: border-box;
+    }
+    
+    .label-item.empty {
+        border: 2px dashed #ddd;
+        background: #fafafa;
     }
 </style>
 </head>
 <body>
     <div class="no-print">
-        <button onclick="window.print()">🖨️ Print 4 Labels</button>
+        <div class="info">Print Queue: ${colaImpresion.length} labels · ${numPaginas} page${numPaginas > 1 ? 's' : ''}</div>
+        <button onclick="window.print()">🖨️ Print All</button>
         <button class="secondary" onclick="window.close()">✕ Close</button>
     </div>
     
-    <div class="labels-grid">
-        ${cuatroEtiquetas}
-    </div>
+    ${paginasHTML}
 </body>
 </html>`;
 
@@ -1480,7 +1539,7 @@ function descargarHTML() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Tegra_${sistema.nombre}_${f.codigo}_4x_Labels.html`;
+    a.download = `Tegra_PrintQueue_${colaImpresion.length}labels.html`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -1491,9 +1550,6 @@ function nuevaBusqueda() {
     document.getElementById('resultado').style.display = 'none';
     document.getElementById('busqueda').value = '';
     document.getElementById('mensajeError').style.display = 'none';
-    document.getElementById('subContent').classList.remove('open');
-    document.getElementById('subToggle').classList.remove('open');
-    resetSustituciones();
     document.getElementById('busqueda').focus();
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -1502,7 +1558,6 @@ document.getElementById('busqueda').addEventListener('keypress', e => {
     if (e.key === 'Enter') buscar();
 });
 
-// Init - Cargar colores NFL primero, luego el sistema
 async function init() {
     await cargarColoresNFL();
     cargarJSON();
