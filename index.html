@@ -34,7 +34,7 @@
             line-height: 1.6;
         }
 
-        /* Header - Logo más pequeño */
+        /* Header */
         .header {
             background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
             border-bottom: 3px solid var(--tegra-red);
@@ -59,7 +59,6 @@
             gap: 12px;
         }
 
-        /* Logo más pequeño: 35px */
         .tegra-global-logo {
             height: 35px;
             width: auto;
@@ -89,7 +88,77 @@
             margin-top: 2px;
         }
 
-        /* Print Queue Panel - AHORA ABAJO */
+        /* System Selector */
+        .system-selector {
+            position: relative;
+        }
+
+        .system-dropdown {
+            appearance: none;
+            background: var(--tegra-card);
+            border: 1px solid var(--tegra-border);
+            color: var(--tegra-text);
+            padding: 10px 38px 10px 14px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+            min-width: 180px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23c41e3a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+
+        .system-dropdown:hover, .system-dropdown:focus {
+            border-color: var(--tegra-red);
+            outline: none;
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--tegra-surface);
+            border-left: 4px solid var(--tegra-red);
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: var(--tegra-muted);
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--tegra-muted);
+        }
+
+        .status-dot.ok { background: var(--tegra-success); }
+        .status-dot.error { background: var(--tegra-red); }
+        .status-dot.loading { 
+            background: var(--tegra-red); 
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Print Queue Panel - AHORA ABAJO DEL STATUS */
         .queue-panel {
             background: var(--tegra-card);
             border: 1px solid var(--tegra-border);
@@ -210,76 +279,6 @@
         .btn-clear-queue:hover {
             border-color: var(--tegra-red);
             color: var(--tegra-red);
-        }
-
-        /* System Selector */
-        .system-selector {
-            position: relative;
-        }
-
-        .system-dropdown {
-            appearance: none;
-            background: var(--tegra-card);
-            border: 1px solid var(--tegra-border);
-            color: var(--tegra-text);
-            padding: 10px 38px 10px 14px;
-            font-family: 'Oswald', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.2s;
-            min-width: 180px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23c41e3a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-        }
-
-        .system-dropdown:hover, .system-dropdown:focus {
-            border-color: var(--tegra-red);
-            outline: none;
-        }
-
-        /* Main Layout */
-        .main-container {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        /* Status Bar */
-        .status-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            background: var(--tegra-surface);
-            border-left: 4px solid var(--tegra-red);
-            margin-bottom: 25px;
-            font-size: 12px;
-            color: var(--tegra-muted);
-            font-weight: 500;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--tegra-muted);
-        }
-
-        .status-dot.ok { background: var(--tegra-success); }
-        .status-dot.error { background: var(--tegra-red); }
-        .status-dot.loading { 
-            background: var(--tegra-red); 
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
         }
 
         /* Search Section */
@@ -629,6 +628,25 @@
             opacity: 0.5;
         }
 
+        .aditivo-card.substituted {
+            border-color: var(--tegra-warning);
+            background: rgba(212, 160, 23, 0.1);
+        }
+
+        .substitute-badge {
+            position: absolute;
+            top: -8px;
+            right: 10px;
+            background: var(--tegra-warning);
+            color: #000;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .adt-name {
             font-size: 12px;
             color: var(--tegra-text);
@@ -649,6 +667,123 @@
 
         .aditivo-card.has .adt-val { color: #52b788; }
         .aditivo-card.zero .adt-val { color: var(--tegra-muted); }
+        .aditivo-card.substituted .adt-val { color: var(--tegra-warning); }
+
+        /* Substitution Panel - RESTAURADO */
+        .substitution-panel {
+            background: var(--tegra-card);
+            border: 1px solid var(--tegra-border);
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .substitution-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .substitution-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--tegra-warning);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .substitution-toggle {
+            background: none;
+            border: none;
+            color: var(--tegra-muted);
+            cursor: pointer;
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+
+        .substitution-toggle.open {
+            transform: rotate(180deg);
+        }
+
+        .substitution-content {
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .substitution-content.open {
+            display: grid;
+        }
+
+        .substitute-control {
+            background: var(--tegra-bg);
+            border: 1px solid var(--tegra-border);
+            border-radius: 6px;
+            padding: 15px;
+        }
+
+        .substitute-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--tegra-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .substitute-select {
+            width: 100%;
+            background: var(--tegra-surface);
+            border: 1px solid var(--tegra-border);
+            color: var(--tegra-text);
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        .substitute-select:focus {
+            outline: none;
+            border-color: var(--tegra-warning);
+        }
+
+        .substitute-input {
+            width: 100%;
+            background: var(--tegra-surface);
+            border: 1px solid var(--tegra-border);
+            color: var(--tegra-text);
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .substitute-input:focus {
+            outline: none;
+            border-color: var(--tegra-warning);
+        }
+
+        .substitute-input.visible {
+            display: block;
+        }
+
+        .original-name {
+            font-size: 12px;
+            color: var(--tegra-muted);
+            margin-top: 8px;
+            font-style: italic;
+        }
 
         /* Comments */
         .comentario-box {
@@ -710,7 +845,7 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .aditivos-grid { grid-template-columns: 1fr; }
+            .aditivos-grid, .substitution-content { grid-template-columns: 1fr; }
             .formula-header { flex-direction: column; text-align: center; }
             .formula-header .add-queue-btn { margin: 15px 0 0 0; width: 100%; }
             .color-swatch-section { flex-direction: column; text-align: center; }
@@ -743,13 +878,13 @@
 
     <div class="main-container">
 
-        <!-- Status Bar PRIMERO -->
+        <!-- 1. Status Bar PRIMERO -->
         <div class="status-bar" id="statusBar">
             <div class="status-dot loading" id="statusDot"></div>
             <span id="statusText">Initializing system...</span>
         </div>
 
-        <!-- Print Queue Panel - AHORA ABAJO DEL STATUS -->
+        <!-- 2. Print Queue Panel - AHORA ABAJO DEL STATUS -->
         <div class="queue-panel" id="queuePanel">
             <div class="queue-header">
                 <div class="queue-title">
@@ -766,6 +901,7 @@
             </div>
         </div>
 
+        <!-- 3. Search Section DESPUÉS -->
         <div class="search-section">
             <div class="search-title">Formula Search</div>
             
@@ -780,6 +916,7 @@
             <div class="error-msg" id="mensajeError"></div>
         </div>
 
+        <!-- 4. Result Card -->
         <div class="result-card" id="resultado">
             <div class="formula-header">
                 <div class="formula-code-box">
@@ -812,6 +949,56 @@
                 <div class="section">
                     <div class="section-title">System Additives</div>
                     <div class="aditivos-grid" id="aditivosContainer"></div>
+                    
+                    <!-- Substitution Panel RESTAURADO -->
+                    <div class="substitution-panel">
+                        <div class="substitution-header" onclick="toggleSubstitutions()">
+                            <div class="substitution-title">
+                                ⚠ Emergency Substitute Additives
+                            </div>
+                            <button class="substitution-toggle" id="subToggle">▼</button>
+                        </div>
+                        <div class="substitution-content" id="subContent">
+                            <div class="substitute-control">
+                                <div class="substitute-label">Catalyst Substitute</div>
+                                <select class="substitute-select" id="subW" onchange="handleSubstituteChange('w')">
+                                    <option value="">Use Original (LIBRA CATALYST)</option>
+                                    <option value="ALT CATALYST PRO">ALT CATALYST PRO</option>
+                                    <option value="FAST CURE X1">FAST CURE X1</option>
+                                    <option value="ECONO CAT">ECONO CAT</option>
+                                    <option value="CUSTOM">✏️ Write Custom...</option>
+                                </select>
+                                <input type="text" class="substitute-input" id="customW" placeholder="Enter custom catalyst name..." onblur="aplicarSustitucion()">
+                                <div class="original-name">Original: LIBRA CATALYST</div>
+                            </div>
+                            
+                            <div class="substitute-control">
+                                <div class="substitute-label">Retarder Substitute</div>
+                                <select class="substitute-select" id="subX" onchange="handleSubstituteChange('x')">
+                                    <option value="">Use Original (LIBRA RETARDER)</option>
+                                    <option value="SLOW RETARDER">SLOW RETARDER</option>
+                                    <option value="FLOW AGENT">FLOW AGENT</option>
+                                    <option value="EXTENDER">EXTENDER</option>
+                                    <option value="CUSTOM">✏️ Write Custom...</option>
+                                </select>
+                                <input type="text" class="substitute-input" id="customX" placeholder="Enter custom retarder name..." onblur="aplicarSustitucion()">
+                                <div class="original-name">Original: LIBRA RETARDER</div>
+                            </div>
+                            
+                            <div class="substitute-control">
+                                <div class="substitute-label">Matte Substitute</div>
+                                <select class="substitute-select" id="subY" onchange="handleSubstituteChange('y')">
+                                    <option value="">Use Original (LIBRA MATTE)</option>
+                                    <option value="MATTE FINISH">MATTE FINISH</option>
+                                    <option value="FLAT AGENT">FLAT AGENT</option>
+                                    <option value="GLOSS REDUCER">GLOSS REDUCER</option>
+                                    <option value="CUSTOM">✏️ Write Custom...</option>
+                                </select>
+                                <input type="text" class="substitute-input" id="customY" placeholder="Enter custom matte name..." onblur="aplicarSustitucion()">
+                                <div class="original-name">Original: LIBRA MATTE</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="section">
@@ -899,7 +1086,8 @@ function mapearFila(row) {
             nombre: info.nombre,
             valor: numVal === 0 ? '0' : (numVal * 100).toFixed(2),
             unidad: '%',
-            esSustituto: false
+            esSustituto: false,
+            nombreCustom: null
         };
     }
 
@@ -1045,6 +1233,7 @@ function buscar() {
     });
 
     if (formulaActual) {
+        resetSustituciones();
         mostrarResultado(formulaActual);
         errorDiv.style.display = 'none';
     } else {
@@ -1052,6 +1241,31 @@ function buscar() {
         errorDiv.innerHTML = `Formula not found: "<strong>${query}</strong>"`;
         document.getElementById('resultado').style.display = 'none';
     }
+}
+
+function resetSustituciones() {
+    // Reset selects
+    document.getElementById('subW').value = '';
+    document.getElementById('subX').value = '';
+    document.getElementById('subY').value = '';
+    
+    // Hide custom inputs
+    document.getElementById('customW').classList.remove('visible');
+    document.getElementById('customX').classList.remove('visible');
+    document.getElementById('customY').classList.remove('visible');
+    
+    // Reset formula data
+    if (formulaActual) {
+        ['w','x','y'].forEach(col => {
+            formulaActual.aditivos[`columna_${col}`].nombre = formulaActual.aditivos[`columna_${col}`].original;
+            formulaActual.aditivos[`columna_${col}`].esSustituto = false;
+            formulaActual.aditivos[`columna_${col}`].nombreCustom = null;
+        });
+    }
+    
+    // Close panel
+    document.getElementById('subContent').classList.remove('open');
+    document.getElementById('subToggle').classList.remove('open');
 }
 
 function mostrarResultado(f) {
@@ -1095,7 +1309,6 @@ function mostrarResultado(f) {
         </tr>
     `).join('');
     
-    // Agregar fila de total
     tablaHTML += `
         <tr class="total-row">
             <td style="font-weight: 700;">TOTAL BASE</td>
@@ -1105,21 +1318,7 @@ function mostrarResultado(f) {
     
     tabla.innerHTML = tablaHTML;
 
-    // CORRECCIÓN: Simplificar el mapeo de aditivos sin destructuring incorrecto
-    const adDiv = document.getElementById('aditivosContainer');
-    const cols = ['columna_w', 'columna_x', 'columna_y'];
-    
-    adDiv.innerHTML = cols.map((key) => {
-        const adt = f.aditivos[key];
-        if (!adt) return ''; // Protección contra undefined
-        
-        const hasVal = parseFloat(adt.valor) > 0;
-        return `
-            <div class="aditivo-card ${hasVal ? 'has' : 'zero'}">
-                <div class="adt-name">${adt.nombre}</div>
-                <div class="adt-val">${adt.valor}${adt.unidad}</div>
-            </div>`;
-    }).join('');
+    renderAditivos();
 
     const comDiv = document.getElementById('comentariosDisplay');
     if (f.comentarios && f.comentarios !== 'N/A') {
@@ -1132,6 +1331,78 @@ function mostrarResultado(f) {
 
     document.getElementById('resultado').style.display = 'block';
     document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderAditivos() {
+    const adDiv = document.getElementById('aditivosContainer');
+    const cols = ['columna_w', 'columna_x', 'columna_y'];
+    
+    adDiv.innerHTML = cols.map((key) => {
+        const adt = formulaActual.aditivos[key];
+        if (!adt) return '';
+        
+        const hasVal = parseFloat(adt.valor) > 0;
+        const isSub = adt.esSustituto;
+        const displayName = adt.nombreCustom || adt.nombre;
+        
+        return `
+            <div class="aditivo-card ${hasVal ? 'has' : 'zero'} ${isSub ? 'substituted' : ''}">
+                ${isSub ? '<div class="substitute-badge">TEMP</div>' : ''}
+                <div class="adt-name">${displayName}</div>
+                <div class="adt-val">${adt.valor}${adt.unidad}</div>
+            </div>`;
+    }).join('');
+}
+
+// SISTEMA DE SUSTITUCIÓN
+function toggleSubstitutions() {
+    const content = document.getElementById('subContent');
+    const toggle = document.getElementById('subToggle');
+    content.classList.toggle('open');
+    toggle.classList.toggle('open');
+}
+
+function handleSubstituteChange(col) {
+    const select = document.getElementById(`sub${col.toUpperCase()}`);
+    const customInput = document.getElementById(`custom${col.toUpperCase()}`);
+    
+    if (select.value === 'CUSTOM') {
+        customInput.classList.add('visible');
+        customInput.focus();
+    } else {
+        customInput.classList.remove('visible');
+        aplicarSustitucion();
+    }
+}
+
+function aplicarSustitucion() {
+    if (!formulaActual) return;
+    
+    // Procesar cada aditivo
+    ['w', 'x', 'y'].forEach(col => {
+        const select = document.getElementById(`sub${col.toUpperCase()}`);
+        const customInput = document.getElementById(`custom${col.toUpperCase()}`);
+        const adt = formulaActual.aditivos[`columna_${col}`];
+        
+        if (select.value === 'CUSTOM' && customInput.value.trim()) {
+            // Usar nombre custom
+            adt.nombre = customInput.value.trim();
+            adt.esSustituto = true;
+            adt.nombreCustom = customInput.value.trim();
+        } else if (select.value && select.value !== 'CUSTOM') {
+            // Usar opción predefinida
+            adt.nombre = select.value;
+            adt.esSustituto = true;
+            adt.nombreCustom = null;
+        } else {
+            // Volver al original
+            adt.nombre = adt.original;
+            adt.esSustituto = false;
+            adt.nombreCustom = null;
+        }
+    });
+    
+    renderAditivos();
 }
 
 // SISTEMA DE COLA DE IMPRESIÓN
@@ -1204,7 +1475,7 @@ function actualizarVistaCola() {
     `).join('');
 }
 
-// IMPRESIÓN MÚLTIPLE - 6 POR PÁGINA (3x2) CON WARNING LABELS MÁS GRANDES
+// IMPRESIÓN MÚLTIPLE - 6 POR PÁGINA (3x2) CON WARNING LABELS GRANDES
 function imprimirCola() {
     if (colaImpresion.length === 0) return;
     
@@ -1230,7 +1501,6 @@ function imprimirCola() {
                 const colorHex = colorNFL ? colorNFL.hex : '#cccccc';
                 const colorName = colorNFL ? colorNFL.name : f.nombre;
                 
-                // Calcular total para la etiqueta
                 const totalBase = f.ingredientes.reduce((sum, ing) => sum + (ing.valor || 0), 0);
                 const totalPorcentaje = (totalBase * 100).toFixed(2) + '%';
                 
@@ -1246,19 +1516,22 @@ function imprimirCola() {
                     const a = f.aditivos[key];
                     if (!a) return '';
                     const hasVal = parseFloat(a.valor) > 0;
-                    const borderColor = hasVal ? '#2d6a4f' : '#c41e3a';
-                    const bgColor = hasVal ? '#f0fdf4' : '#fef2f2';
-                    const textColor = hasVal ? '#2d6a4f' : '#666';
+                    const isSub = a.esSustituto;
+                    const borderColor = isSub ? '#d4a017' : (hasVal ? '#2d6a4f' : '#c41e3a');
+                    const bgColor = isSub ? '#fffbeb' : (hasVal ? '#f0fdf4' : '#fef2f2');
+                    const textColor = isSub ? '#d4a017' : (hasVal ? '#2d6a4f' : '#666');
+                    const badge = isSub ? '<div style="background: #d4a017; color: #000; font-size: 8px; padding: 1px 4px; border-radius: 3px; font-weight: 700; margin-bottom: 3px;">TEMP</div>' : '';
                     
-                    return `<div style="flex: 1; padding: 8px 4px; background: ${bgColor}; border: 2px solid ${borderColor}; border-radius: 4px; text-align: center; margin: 0 3px;">
-                        <div style="font-size: 9px; font-weight: 800; color: #111; margin-bottom: 4px; line-height: 1.2; word-break: break-word; text-transform: uppercase;">${a.nombre}</div>
-                        <div style="font-size: 20px; font-weight: 900; color: ${textColor}; font-family: 'Oswald', sans-serif; line-height: 1;">${a.valor}${a.unidad}</div>
+                    return `<div style="flex: 1; padding: 6px 2px; background: ${bgColor}; border: 2px solid ${borderColor}; border-radius: 4px; text-align: center; margin: 0 3px;">
+                        ${badge}
+                        <div style="font-size: 9px; font-weight: 800; color: #111; margin-bottom: 2px; line-height: 1.2; word-break: break-word; text-transform: uppercase;">${a.nombre}</div>
+                        <div style="font-size: 18px; font-weight: 900; color: ${textColor}; font-family: 'Oswald', sans-serif; line-height: 1;">${a.valor}${a.unidad}</div>
                     </div>`;
                 }).join('');
 
                 gridContent += `
                 <div class="label-item">
-                    <!-- Warning Label MÁS GRANDE: 75x75px -->
+                    <!-- Warning Label GRANDE: 75x75px -->
                     <div style="position: absolute; top: 8px; right: 8px; width: 75px; height: 75px; z-index: 10;">
                         <img src="${WARNING_LABEL_URL}" style="width: 100%; height: 100%;" alt="Warning">
                     </div>
@@ -1482,6 +1755,9 @@ function nuevaBusqueda() {
     document.getElementById('resultado').style.display = 'none';
     document.getElementById('busqueda').value = '';
     document.getElementById('mensajeError').style.display = 'none';
+    document.getElementById('subContent').classList.remove('open');
+    document.getElementById('subToggle').classList.remove('open');
+    resetSustituciones();
     document.getElementById('busqueda').focus();
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
