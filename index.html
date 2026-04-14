@@ -3,108 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fanatics Silicon - Buscador de Fórmulas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Tegra Color Lab | Sistema de Formulación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0d0f14;
-            --surface: #151820;
-            --surface2: #1c2030;
-            --border: #252a3a;
-            --accent: #e8b84b;
-            --accent2: #3d7fff;
-            --danger: #e05252;
-            --success: #3dba7e;
-            --text: #e8eaf0;
-            --text-muted: #6b7494;
-            --blocker: #e05252;
-            --bases: #3dba7e;
-            --pigmento: #3d7fff;
-            --clear: #a78bfa;
-            --aditivo: #f97316;
+            --tegra-bg: #0f0f0f;
+            --tegra-surface: #1a1a1a;
+            --tegra-card: #242424;
+            --tegra-border: #333333;
+            --tegra-red: #c41e3a;
+            --tegra-red-hover: #e63946;
+            --tegra-text: #ffffff;
+            --tegra-muted: #888888;
+            --tegra-success: #2d6a4f;
+            --tegra-warning: #d4a017;
+            --tegra-accent: #3d7fff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            font-family: 'Barlow', sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            background: var(--tegra-bg);
+            color: var(--tegra-text);
             min-height: 100vh;
-            padding: 30px 20px 60px;
+            line-height: 1.6;
         }
 
-        /* ── HEADER ── */
+        /* Header - Logo más pequeño */
         .header {
-            text-align: center;
-            margin-bottom: 36px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+            border-bottom: 3px solid var(--tegra-red);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .header-label {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 11px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 8px;
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .header h1 {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 52px;
-            font-weight: 900;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Logo más pequeño: 35px */
+        .tegra-global-logo {
+            height: 35px;
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .brand-text h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: -1px;
+            letter-spacing: 3px;
             line-height: 1;
-            color: var(--text);
+            color: var(--tegra-text);
         }
 
-        .header h1 span { color: var(--accent); }
+        .brand-text span {
+            color: var(--tegra-red);
+            font-weight: 700;
+        }
 
-        .header-sub {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 8px;
+        .brand-sub {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--tegra-muted);
+            margin-top: 2px;
+        }
+
+        /* Print Queue Panel */
+        .queue-panel {
+            background: var(--tegra-card);
+            border: 1px solid var(--tegra-border);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .queue-panel.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .queue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .queue-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
             letter-spacing: 1px;
+            color: var(--tegra-text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* ── LAYOUT ── */
-        .container { max-width: 860px; margin: 0 auto; }
+        .queue-count {
+            background: var(--tegra-red);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+        }
 
-        /* ── STATUS BAR ── */
+        .queue-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .queue-item {
+            background: var(--tegra-bg);
+            border: 1px solid var(--tegra-border);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .queue-item .remove {
+            color: var(--tegra-red);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .queue-item .remove:hover {
+            color: #ff4444;
+        }
+
+        .queue-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-queue-print {
+            flex: 1;
+            padding: 12px;
+            background: var(--tegra-success);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        .btn-queue-print:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-clear-queue {
+            padding: 12px 20px;
+            background: transparent;
+            border: 1px solid var(--tegra-border);
+            color: var(--tegra-muted);
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .btn-clear-queue:hover {
+            border-color: var(--tegra-red);
+            color: var(--tegra-red);
+        }
+
+        /* System Selector */
+        .system-selector {
+            position: relative;
+        }
+
+        .system-dropdown {
+            appearance: none;
+            background: var(--tegra-card);
+            border: 1px solid var(--tegra-border);
+            color: var(--tegra-text);
+            padding: 10px 38px 10px 14px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+            min-width: 180px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23c41e3a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+
+        .system-dropdown:hover, .system-dropdown:focus {
+            border-color: var(--tegra-red);
+            outline: none;
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Status Bar */
         .status-bar {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 16px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 10px 14px;
+            background: var(--tegra-surface);
+            border-left: 4px solid var(--tegra-red);
+            margin-bottom: 25px;
             font-size: 12px;
-            color: var(--text-muted);
+            color: var(--tegra-muted);
+            font-weight: 500;
         }
 
         .status-dot {
-            width: 8px; height: 8px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: var(--text-muted);
-            flex-shrink: 0;
+            background: var(--tegra-muted);
         }
 
-        .status-dot.ok { background: var(--success); box-shadow: 0 0 6px var(--success); }
-        .status-dot.error { background: var(--danger); }
-        .status-dot.loading { background: var(--accent); animation: pulse 1s infinite; }
+        .status-dot.ok { background: var(--tegra-success); }
+        .status-dot.error { background: var(--tegra-red); }
+        .status-dot.loading { 
+            background: var(--tegra-red); 
+            animation: pulse 1.5s infinite;
+        }
 
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
 
-        /* ── SEARCH ── */
-        .search-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
+        /* Search Section */
+        .search-section {
+            background: var(--tegra-surface);
+            border: 1px solid var(--tegra-border);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .search-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+            color: var(--tegra-text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 22px;
+            background: var(--tegra-red);
         }
 
         .search-row {
@@ -115,367 +320,526 @@
 
         .search-input {
             flex: 1;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 13px 16px;
-            font-size: 16px;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: var(--text);
-            transition: border-color .2s;
-            outline: none;
+            background: var(--tegra-bg);
+            border: 1px solid var(--tegra-border);
+            color: var(--tegra-text);
+            padding: 12px 16px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            border-radius: 4px;
+            transition: all 0.2s;
         }
 
-        .search-input:focus { border-color: var(--accent); }
-        .search-input::placeholder { color: var(--text-muted); font-weight: 400; letter-spacing: 0; }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--tegra-red);
+        }
+
+        .search-input::placeholder {
+            color: #555;
+        }
 
         .btn-search {
-            padding: 13px 28px;
-            background: var(--accent);
-            color: #000;
+            padding: 12px 28px;
+            background: var(--tegra-red);
+            color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 4px;
             cursor: pointer;
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: 'Oswald', sans-serif;
             font-size: 15px;
-            font-weight: 700;
-            letter-spacing: 1px;
+            font-weight: 600;
             text-transform: uppercase;
-            transition: opacity .2s;
+            letter-spacing: 1px;
+            transition: all 0.2s;
         }
 
-        .btn-search:hover { opacity: .85; }
+        .btn-search:hover {
+            background: var(--tegra-red-hover);
+            transform: translateY(-1px);
+        }
 
-        /* ── CHIPS ── */
-        .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+        .btn-search:disabled {
+            background: #333;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Chips */
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
 
         .chip {
-            padding: 5px 13px;
-            background: var(--surface2);
-            border: 1px solid var(--border);
+            padding: 5px 12px;
+            background: transparent;
+            border: 1px solid var(--tegra-border);
             border-radius: 20px;
             font-size: 12px;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 600;
-            letter-spacing: .5px;
-            color: var(--text-muted);
+            font-weight: 500;
+            color: var(--tegra-muted);
             cursor: pointer;
-            transition: all .2s;
+            transition: all 0.2s;
         }
 
-        .chip:hover { border-color: var(--accent); color: var(--accent); }
-
-        .chip[data-cat="BLOCKER"] { border-color: color-mix(in srgb, var(--blocker) 40%, transparent); color: var(--blocker); }
-        .chip[data-cat="BASES"]   { border-color: color-mix(in srgb, var(--bases) 40%, transparent);   color: var(--bases); }
-        .chip[data-cat="PIGMENTO"]{ border-color: color-mix(in srgb, var(--pigmento) 40%, transparent); color: var(--pigmento); }
-        .chip[data-cat="CLEAR"]   { border-color: color-mix(in srgb, var(--clear) 40%, transparent);   color: var(--clear); }
-
-        /* ── NO RESULTS ── */
-        .no-results {
-            padding: 14px;
-            background: color-mix(in srgb, var(--danger) 10%, transparent);
-            border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent);
-            border-radius: 8px;
-            color: var(--danger);
-            font-size: 14px;
-            margin-top: 14px;
+        .chip:hover {
+            border-color: var(--tegra-red);
+            color: var(--tegra-text);
+            background: rgba(196, 30, 58, 0.1);
         }
 
-        /* ── RESULT CARD ── */
-        .result-card { display: none; }
+        .chip[data-cat="BLOCKER"] { border-color: rgba(196, 30, 58, 0.5); color: #ff6b6b; }
+        .chip[data-cat="BASES"]   { border-color: rgba(45, 106, 79, 0.5); color: #52b788; }
+        .chip[data-cat="PIGMENTO"]{ border-color: rgba(212, 160, 23, 0.5); color: #f4d03f; }
+        .chip[data-cat="CLEAR"]   { border-color: rgba(100, 100, 255, 0.5); color: #a29bfe; }
+
+        /* Result Card */
+        .result-card {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .formula-header {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px 12px 0 0;
-            padding: 28px 30px;
+            background: var(--tegra-surface);
+            border: 1px solid var(--tegra-border);
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+            padding: 25px;
             display: flex;
             align-items: center;
             gap: 20px;
-            border-bottom: none;
+        }
+
+        .formula-code-box {
+            background: var(--tegra-bg);
+            border: 2px solid var(--tegra-red);
+            padding: 12px 20px;
+            border-radius: 6px;
+            min-width: 100px;
+            text-align: center;
         }
 
         .formula-code {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 56px;
-            font-weight: 900;
+            font-family: 'Oswald', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
             line-height: 1;
-            color: var(--accent);
+            color: var(--tegra-text);
+            letter-spacing: 2px;
         }
 
         .formula-info { flex: 1; }
 
         .formula-name {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 26px;
-            font-weight: 700;
+            font-family: 'Oswald', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: .5px;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
 
         .cat-badge {
             display: inline-block;
             padding: 3px 10px;
-            border-radius: 4px;
+            background: var(--tegra-red);
+            color: white;
             font-size: 11px;
-            font-family: 'Barlow Condensed', sans-serif;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-top: 6px;
+            border-radius: 4px;
         }
 
-        .cat-BLOCKER { background: color-mix(in srgb, var(--blocker) 20%, transparent); color: var(--blocker); }
-        .cat-BASES   { background: color-mix(in srgb, var(--bases) 20%, transparent);   color: var(--bases); }
-        .cat-PIGMENTO{ background: color-mix(in srgb, var(--pigmento) 20%, transparent); color: var(--pigmento); }
-        .cat-CLEAR   { background: color-mix(in srgb, var(--clear) 20%, transparent);   color: var(--clear); }
-        .cat-ADITIVO { background: color-mix(in srgb, var(--aditivo) 20%, transparent); color: var(--aditivo); }
+        .cat-BLOCKER { background: #c41e3a; }
+        .cat-BASES   { background: #2d6a4f; }
+        .cat-PIGMENTO{ background: #d4a017; }
+        .cat-CLEAR   { background: #4a4e69; }
 
-        /* ── SECTIONS ── */
-        .sections-wrap {
-            background: var(--surface);
-            border: 1px solid var(--border);
+        /* Add to Queue Button */
+        .add-queue-btn {
+            margin-left: auto;
+            padding: 10px 20px;
+            background: var(--tegra-accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .add-queue-btn:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .add-queue-btn:disabled {
+            background: #333;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Color Swatch Section */
+        .color-swatch-section {
+            background: var(--tegra-surface);
+            border: 1px solid var(--tegra-border);
             border-top: none;
-            border-radius: 0 0 12px 12px;
-            padding: 24px 30px;
+            padding: 18px 25px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
         }
 
-        .section { margin-bottom: 28px; }
+        .color-swatch {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 3px solid var(--tegra-border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+        }
+
+        .color-info {
+            flex: 1;
+        }
+
+        .color-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .color-hex {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--tegra-muted);
+            background: var(--tegra-bg);
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        /* Sections */
+        .sections-wrap {
+            background: var(--tegra-surface);
+            border: 1px solid var(--tegra-border);
+            border-top: 1px solid var(--tegra-border);
+            border-radius: 0 0 8px 8px;
+            padding: 25px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section:last-child { margin-bottom: 0; }
 
         .section-title {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 3px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
             text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 14px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border);
+            letter-spacing: 2px;
+            color: var(--tegra-muted);
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--tegra-border);
         }
 
-        /* ── INGREDIENTS TABLE ── */
-        .ing-table { width: 100%; border-collapse: collapse; }
+        /* Ingredients Table */
+        .ing-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-        .ing-table tr { border-bottom: 1px solid var(--border); }
-        .ing-table tr:last-child { border-bottom: none; }
+        .ing-table tr {
+            border-bottom: 1px solid var(--tegra-border);
+            transition: background 0.2s;
+        }
+
+        .ing-table tr:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .ing-table tr.total-row {
+            background: rgba(196, 30, 58, 0.1);
+            border-top: 2px solid var(--tegra-red);
+            font-weight: 700;
+        }
 
         .ing-table td {
-            padding: 10px 6px;
+            padding: 12px 0;
             font-size: 14px;
         }
 
-        .ing-name { color: var(--text); }
-
-        .ing-vals { text-align: right; display: flex; gap: 10px; justify-content: flex-end; align-items: center; }
-
-        .ing-pct {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 700;
-            font-size: 16px;
-            color: var(--accent);
-            min-width: 60px;
+        .ing-table td:last-child {
             text-align: right;
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            color: var(--tegra-red);
+            font-weight: 500;
         }
 
         .ing-raw {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 12px;
-            color: var(--text-muted);
-            min-width: 70px;
-            text-align: right;
+            font-size: 11px;
+            color: var(--tegra-muted);
+            margin-right: 10px;
+            font-family: 'Courier New', monospace;
         }
 
-        /* ── ADITIVOS GRID ── */
+        /* Aditivos Grid */
         .aditivos-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
         }
 
-        .aditivo-box {
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 16px;
+        .aditivo-card {
+            background: var(--tegra-bg);
+            border: 1px solid var(--tegra-border);
+            border-radius: 6px;
+            padding: 18px;
             text-align: center;
+            position: relative;
+            transition: all 0.2s;
         }
 
-        .aditivo-box.has { border-color: var(--success); background: color-mix(in srgb, var(--success) 8%, var(--surface2)); }
-        .aditivo-box.zero { opacity: .5; }
+        .aditivo-card.has {
+            border-color: var(--tegra-success);
+            background: rgba(45, 106, 79, 0.1);
+        }
 
-        .adt-col {
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 4px;
+        .aditivo-card.zero {
+            opacity: 0.5;
         }
 
         .adt-name {
             font-size: 12px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 10px;
+            color: var(--tegra-text);
+            margin-bottom: 8px;
             min-height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: 500;
         }
 
         .adt-val {
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: 'Oswald', sans-serif;
             font-size: 32px;
-            font-weight: 900;
-            color: var(--accent2);
+            font-weight: 700;
+            line-height: 1;
         }
 
-        .aditivo-box.has .adt-val { color: var(--success); }
+        .aditivo-card.has .adt-val { color: #52b788; }
+        .aditivo-card.zero .adt-val { color: var(--tegra-muted); }
 
-        /* ── COMENTARIOS ── */
+        /* Comments */
         .comentario-box {
-            background: color-mix(in srgb, var(--accent) 8%, transparent);
-            border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-            border-radius: 10px;
-            padding: 18px 22px;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: .5px;
-            color: var(--accent);
-            text-align: center;
+            background: rgba(196, 30, 58, 0.05);
+            border-left: 4px solid var(--tegra-red);
+            padding: 18px;
+            font-size: 15px;
+            color: var(--tegra-text);
+            line-height: 1.6;
         }
 
         .comentario-box.na {
-            background: var(--surface2);
-            border-color: var(--border);
-            color: var(--text-muted);
-            font-size: 14px;
-            font-family: 'Barlow', sans-serif;
-            font-weight: 400;
+            background: var(--tegra-bg);
+            border-left-color: var(--tegra-border);
+            color: var(--tegra-muted);
+            font-size: 13px;
         }
 
-        /* ── ACTIONS ── */
-        .actions { display: flex; gap: 10px; margin-top: 20px; }
-
-        .btn-dl {
-            flex: 1;
-            padding: 14px;
-            background: var(--accent2);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 15px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: opacity .2s;
+        /* Actions */
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid var(--tegra-border);
         }
-
-        .btn-dl:hover { opacity: .85; }
 
         .btn-new {
-            padding: 14px 24px;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            border-radius: 8px;
+            padding: 14px 25px;
+            background: transparent;
+            border: 1px solid var(--tegra-border);
+            color: var(--tegra-muted);
+            border-radius: 4px;
             cursor: pointer;
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: 'Oswald', sans-serif;
             font-size: 15px;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
-            transition: all .2s;
+            transition: all 0.2s;
         }
 
-        .btn-new:hover { border-color: var(--text-muted); color: var(--text); }
+        .btn-new:hover {
+            border-color: var(--tegra-text);
+            color: var(--tegra-text);
+            background: rgba(255,255,255,0.05);
+        }
 
-        /* ── RESPONSIVE ── */
-        @media (max-width: 540px) {
-            .aditivos-grid { grid-template-columns: 1fr 1fr; }
-            .formula-code { font-size: 36px; }
-            .header h1 { font-size: 36px; }
+        /* Error */
+        .error-msg {
+            margin-top: 15px;
+            padding: 12px 16px;
+            background: rgba(196, 30, 58, 0.1);
+            border-left: 4px solid var(--tegra-red);
+            color: #ff6b6b;
+            font-size: 14px;
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .aditivos-grid { grid-template-columns: 1fr; }
+            .formula-header { flex-direction: column; text-align: center; }
+            .formula-header .add-queue-btn { margin: 15px 0 0 0; width: 100%; }
+            .color-swatch-section { flex-direction: column; text-align: center; }
+            .actions { flex-direction: column; }
+            .queue-actions { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-
-    <div class="header">
-        <div class="header-label">Tegra Global</div>
-        <h1>Fanatics <span>Silicon</span></h1>
-        <div class="header-sub">Sistema de Etiquetas</div>
-    </div>
-
-    <!-- Status del JSON -->
-    <div class="status-bar" id="statusBar">
-        <div class="status-dot loading" id="statusDot"></div>
-        <span id="statusText">Cargando base de datos...</span>
-    </div>
-
-    <!-- Búsqueda -->
-    <div class="search-card">
-        <div class="search-row">
-            <input type="text" class="search-input" id="busqueda"
-                   placeholder="Buscar por código o color (76I, BLOCKER, METALICO...)"
-                   disabled>
-            <button class="btn-search" onclick="buscar()" id="btnBuscar" disabled>Buscar</button>
-        </div>
-        <div class="chips" id="chipsContainer"></div>
-        <div id="mensajeError"></div>
-    </div>
-
-    <!-- Resultado -->
-    <div class="result-card" id="resultado">
-        <div class="formula-header">
-            <div class="formula-code" id="resCodigo">—</div>
-            <div class="formula-info">
-                <div class="formula-name" id="resNombre">—</div>
-                <div class="cat-badge" id="resCategoria">—</div>
+    <header class="header">
+        <div class="header-content">
+            <div class="brand">
+                <img src="https://www.tegraglobal.com/images/logo.png" alt="Tegra Global" class="tegra-global-logo">
+                <div class="brand-text">
+                    <div class="brand-sub">Formulation System</div>
+                    <h1>Color <span>Lab</span></h1>
+                </div>
+            </div>
+            
+            <div class="system-selector">
+                <select class="system-dropdown" id="systemSelect" onchange="cambiarSistema()">
+                    <option value="silicon">Silicon Industrial</option>
+                    <option value="waterbase">Water Base Eco</option>
+                    <option value="plastisol">Plastisol Pro</option>
+                </select>
             </div>
         </div>
+    </header>
 
-        <div class="sections-wrap">
+    <div class="main-container">
 
-            <div class="section">
-                <div class="section-title">Composición Base</div>
-                <table class="ing-table" id="listaIngredientes"></table>
+        <!-- Print Queue Panel -->
+        <div class="queue-panel" id="queuePanel">
+            <div class="queue-header">
+                <div class="queue-title">
+                    Print Queue
+                    <span class="queue-count" id="queueCount">0</span>
+                </div>
             </div>
-
-            <div class="section">
-                <div class="section-title">Aditivos</div>
-                <div class="aditivos-grid" id="aditivosContainer"></div>
+            <div class="queue-items" id="queueItems"></div>
+            <div class="queue-actions">
+                <button class="btn-queue-print" onclick="imprimirCola()">
+                    🖨️ Print Labels (<span id="queueCountBtn">0</span>)
+                </button>
+                <button class="btn-clear-queue" onclick="limpiarCola()">Clear All</button>
             </div>
-
-            <div class="section">
-                <div class="section-title">Comentarios</div>
-                <div id="comentariosDisplay" class="comentario-box na">Sin comentarios</div>
-            </div>
-
-            <div class="actions">
-                <button class="btn-dl" onclick="descargarHTML()">⬇ Descargar Etiqueta HTML</button>
-                <button class="btn-new" onclick="nuevaBusqueda()">↺ Nueva</button>
-            </div>
-
         </div>
-    </div>
 
-</div>
+        <div class="status-bar" id="statusBar">
+            <div class="status-dot loading" id="statusDot"></div>
+            <span id="statusText">Initializing system...</span>
+        </div>
+
+        <div class="search-section">
+            <div class="search-title">Formula Search</div>
+            
+            <div class="search-row">
+                <input type="text" class="search-input" id="busqueda"
+                       placeholder="Enter code or color name..."
+                       disabled>
+                <button class="btn-search" onclick="buscar()" id="btnBuscar" disabled>Search</button>
+            </div>
+
+            <div class="chips-container" id="chipsContainer"></div>
+            <div class="error-msg" id="mensajeError"></div>
+        </div>
+
+        <div class="result-card" id="resultado">
+            <div class="formula-header">
+                <div class="formula-code-box">
+                    <div class="formula-code" id="resCodigo">—</div>
+                </div>
+                <div class="formula-info">
+                    <div class="formula-name" id="resNombre">—</div>
+                    <div class="cat-badge" id="resCategoria">—</div>
+                </div>
+                <button class="add-queue-btn" id="addQueueBtn" onclick="agregarACola()">
+                    + Add to Print Queue
+                </button>
+            </div>
+
+            <div class="color-swatch-section" id="colorSection" style="display: none;">
+                <div class="color-swatch" id="colorSwatch"></div>
+                <div class="color-info">
+                    <div class="color-name" id="colorName">Color Name</div>
+                    <div class="color-hex" id="colorHex">#000000</div>
+                </div>
+            </div>
+
+            <div class="sections-wrap">
+
+                <div class="section">
+                    <div class="section-title">Base Composition</div>
+                    <table class="ing-table" id="listaIngredientes"></table>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">System Additives</div>
+                    <div class="aditivos-grid" id="aditivosContainer"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Technical Notes</div>
+                    <div id="comentariosDisplay" class="comentario-box na">No additional comments</div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn-new" onclick="nuevaBusqueda()">New Search</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-//  MAPEO DEL JSON DE OREGON → FORMATO INTERNO
-//  El JSON tiene columnas genéricas (Column12..Column26).
-//  Esta función convierte cada fila al objeto que usa la UI.
-// ═══════════════════════════════════════════════════════
+const SISTEMAS = {
+    silicon: { nombre: 'Silicon', archivo: 'oregon_silicon.json', color: '#c41e3a' },
+    waterbase: { nombre: 'Water Base', archivo: 'waterbase.json', color: '#3d7fff' },
+    plastisol: { nombre: 'Plastisol', archivo: 'plastisol.json', color: '#d4a017' }
+};
 
-// Mapa de Column → nombre de ingrediente (según la fila de encabezado del JSON)
+let SISTEMA_ACTUAL = 'silicon';
+let DATABASE = [];
+let COLORES_NFL = [];
+let formulaActual = null;
+let colaImpresion = [];
+
 const COL_INGREDIENTES = {
     Column12: 'LIBRA BARRIER CLEAR PART A',
     Column13: 'LIBRA BARRIER BLACK PART B',
@@ -490,147 +854,188 @@ const COL_INGREDIENTES = {
     Column22: 'LIBRA CLEAR GEL PART B',
 };
 
-// Mapa de Column → nombre de aditivo + columna W/X/Y
 const COL_ADITIVOS = {
     Column23: { col: 'W', nombre: 'LIBRA CATALYST' },
     Column24: { col: 'X', nombre: 'LIBRA RETARDER' },
     Column25: { col: 'Y', nombre: 'LIBRA MATTE' },
 };
 
-// Categoría por código de color (columna Column12 de la fila de categorías del JSON)
-// El JSON tiene una fila con { Column12:"BLOCKER", Column14:"BASES", Column17:"PIGMENTO",
-//                              Column21:"CLEAR", Column23:"ADITIVO" }
-// Usamos esa lógica para asignar categoría a cada fórmula según qué columnas tienen valores.
+const COLORES_NFL_URL = 'https://raw.githubusercontent.com/veleztegra-create/tegra-spec-manager/cLabelformulas/COLORES%20NFL%20FANATICS.json';
+const WARNING_LABEL_URL = 'https://raw.githubusercontent.com/veleztegra-create/tegra-spec-manager/5f7a1ce3cb0c6b5a57537505b44f2da8e97277ba/assets/color-lab-warning-label.svg';
+const TEGRA_LOGO_URL = 'https://www.tegraglobal.com/images/logo.png';
+
+function isNum(v) { return typeof v === 'number' && !isNaN(v); }
+function pct(v) { return isNum(v) ? (v * 100).toFixed(2) + '%' : null; }
+
 function detectarCategoria(row) {
-    // Si tiene BARRIER → BLOCKER
     if (isNum(row.Column12) || isNum(row.Column13)) return 'BLOCKER';
-    // Si tiene CLEAR GEL → CLEAR
     if (isNum(row.Column21) || isNum(row.Column22)) return 'CLEAR';
-    // Si solo tiene LIBRA RFU WHITE y nada más en ingredientes → BASES
-    const tieneBase   = isNum(row.Column14);
-    const tieneShimmer= isNum(row.Column16);
-    const tienePigmentos = isNum(row.Column17) || isNum(row.Column18) ||
-                           isNum(row.Column19) || isNum(row.Column20);
+    const tieneBase = isNum(row.Column14);
+    const tieneShimmer = isNum(row.Column16);
+    const tienePigmentos = isNum(row.Column17) || isNum(row.Column18) || isNum(row.Column19) || isNum(row.Column20);
     if (!tieneBase && !tieneShimmer && !tienePigmentos && isNum(row.Column15)) return 'BASES';
     return 'PIGMENTO';
 }
 
-function isNum(v) {
-    return typeof v === 'number' && !isNaN(v);
-}
-
-function pct(v) {
-    if (!isNum(v)) return null;
-    return (v * 100).toFixed(2) + '%';
-}
-
 function mapearFila(row) {
-    // Ingredientes: solo columnas que tienen valor numérico
     const ingredientes = [];
+    let totalPorcentaje = 0;
+    
     for (const [col, nombre] of Object.entries(COL_INGREDIENTES)) {
         const val = row[col];
         if (isNum(val)) {
-            ingredientes.push({
-                nombre,
-                valor: val,
-                porcentaje: pct(val)
-            });
+            ingredientes.push({ nombre, valor: val, porcentaje: pct(val) });
+            totalPorcentaje += val;
         }
     }
 
-    // Aditivos
     const aditivos = {};
     for (const [col, info] of Object.entries(COL_ADITIVOS)) {
         const val = row[col];
         const numVal = isNum(val) ? val : 0;
         aditivos[`columna_${info.col.toLowerCase()}`] = {
+            original: info.nombre,
             nombre: info.nombre,
             valor: numVal === 0 ? '0' : (numVal * 100).toFixed(2),
-            unidad: '%'
+            unidad: '%',
+            esSustituto: false
         };
     }
 
-    // Comentarios
-    const comentarios = row.Column26 || null;
-
     return {
-        codigo:      (row['SISTEMA DE SILICON'] || 'N/A').toString().trim(),
-        nombre:      (row.Column11 || '').toString().trim().toUpperCase(),
-        categoria:   detectarCategoria(row),
+        codigo: (row['SISTEMA DE SILICON'] || 'N/A').toString().trim(),
+        nombre: (row.Column11 || '').toString().trim().toUpperCase(),
+        categoria: detectarCategoria(row),
         ingredientes,
+        totalPorcentaje: (totalPorcentaje * 100).toFixed(2) + '%',
         aditivos,
-        comentarios
+        comentarios: row.Column26 || null
     };
 }
 
-// ═══════════════════════════════════════════════════════
-//  CARGA DEL JSON EXTERNO
-// ═══════════════════════════════════════════════════════
-let DATABASE = [];
-let formulaActual = null;
+async function cargarColoresNFL() {
+    try {
+        const response = await fetch(COLORES_NFL_URL);
+        const text = await response.text();
+        const colorMatches = text.match(/"colors":\s*\[([\s\S]*?)\](?=\s*[,}])/g);
+        
+        if (colorMatches) {
+            colorMatches.forEach(match => {
+                try {
+                    const colorsArray = JSON.parse('{' + match + '}').colors;
+                    if (Array.isArray(colorsArray)) {
+                        COLORES_NFL = COLORES_NFL.concat(colorsArray);
+                    }
+                } catch (e) {}
+            });
+        }
+        
+        const individualMatches = text.match(/\{\s*"index":\s*\d+[^}]*"name":\s*"[^"]*"[^}]*"hex":\s*"#[A-Fa-f0-9]{6}"[^}]*\}/g);
+        if (individualMatches) {
+            individualMatches.forEach(match => {
+                try {
+                    const color = JSON.parse(match);
+                    if (color.name && color.hex) {
+                        COLORES_NFL.push(color);
+                    }
+                } catch (e) {}
+            });
+        }
+    } catch (err) {
+        console.error('Error loading NFL colors:', err);
+    }
+}
+
+function buscarColorNFL(nombreColor) {
+    if (!nombreColor || COLORES_NFL.length === 0) return null;
+    
+    const nombreBusqueda = nombreColor.toUpperCase().trim();
+    
+    let encontrado = COLORES_NFL.find(c => 
+        c.name && c.name.toUpperCase().trim() === nombreBusqueda
+    );
+    
+    if (!encontrado) {
+        encontrado = COLORES_NFL.find(c => {
+            if (!c.name) return false;
+            const nameUpper = c.name.toUpperCase();
+            return nameUpper.includes(nombreBusqueda) || 
+                   nombreBusqueda.includes(nameUpper) ||
+                   (nombreBusqueda.match(/\d{2}[A-Z]/) && nameUpper.includes(nombreBusqueda.match(/\d{2}[A-Z]/)[0]));
+        });
+    }
+    
+    return encontrado;
+}
+
+function cambiarSistema() {
+    SISTEMA_ACTUAL = document.getElementById('systemSelect').value;
+    cargarJSON();
+    nuevaBusqueda();
+    document.getElementById('chipsContainer').innerHTML = '';
+}
 
 async function cargarJSON() {
-    const dot  = document.getElementById('statusDot');
+    const dot = document.getElementById('statusDot');
     const text = document.getElementById('statusText');
     const input = document.getElementById('busqueda');
-    const btn   = document.getElementById('btnBuscar');
+    const btn = document.getElementById('btnBuscar');
+
+    dot.className = 'status-dot loading';
+    text.textContent = `Loading ${SISTEMAS[SISTEMA_ACTUAL].nombre} database...`;
+    input.disabled = true;
+    btn.disabled = true;
 
     try {
-        // 🔧 CAMBIA ESTA RUTA al nombre real de tu archivo JSON
-        const JSON_URL = 'oregon_silicon.json';
-
-        const resp = await fetch(JSON_URL);
+        const resp = await fetch(SISTEMAS[SISTEMA_ACTUAL].archivo);
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-
+        
         const raw = await resp.json();
-
-        // Filtrar filas válidas: excluir nulls, encabezados y fila de categorías
-        const filas = raw.filter(r =>
-            r !== null &&
-            r['SISTEMA DE SILICON'] !== undefined &&
-            r.Column11 && typeof r.Column11 === 'string' &&
-            r.Column11 !== 'COLOR' && r['SISTEMA DE SILICON'] !== 'CODIGO'
-        );
-
+        const filas = raw.filter(r => r && r['SISTEMA DE SILICON'] && r.Column11 && 
+                             r.Column11 !== 'COLOR' && r['SISTEMA DE SILICON'] !== 'CODIGO');
+        
         DATABASE = filas.map(mapearFila);
-
-        // Construir chips
         buildChips();
 
-        dot.className  = 'status-dot ok';
-        text.textContent = `✓ Base de datos cargada · ${DATABASE.length} fórmulas disponibles`;
+        dot.className = 'status-dot ok';
+        text.textContent = `System ready · ${DATABASE.length} formulas · ${COLORES_NFL.length} color refs`;
         input.disabled = false;
-        btn.disabled   = false;
+        btn.disabled = false;
         input.focus();
 
     } catch (err) {
-        dot.className  = 'status-dot error';
-        text.textContent = `Error al cargar el JSON: ${err.message} · ¿El archivo está en la misma carpeta?`;
+        dot.className = 'status-dot error';
+        text.textContent = `Error loading ${SISTEMAS[SISTEMA_ACTUAL].archivo}: ${err.message}`;
     }
 }
 
 function buildChips() {
     const container = document.getElementById('chipsContainer');
-    DATABASE.forEach(f => {
+    container.innerHTML = '';
+    const preview = DATABASE.slice(0, 10);
+    
+    preview.forEach(f => {
         const chip = document.createElement('span');
         chip.className = 'chip';
         chip.dataset.cat = f.categoria;
         chip.textContent = f.codigo !== 'N/A' ? `${f.codigo} · ${f.nombre}` : f.nombre;
-        chip.onclick = () => { document.getElementById('busqueda').value = f.codigo !== 'N/A' ? f.codigo : f.nombre; buscar(); };
+        chip.onclick = () => {
+            document.getElementById('busqueda').value = f.codigo !== 'N/A' ? f.codigo : f.nombre;
+            buscar();
+        };
         container.appendChild(chip);
     });
 }
-
-// ═══════════════════════════════════════════════════════
-//  LÓGICA DE BÚSQUEDA Y DISPLAY
-// ═══════════════════════════════════════════════════════
-function setBusqueda(v) { document.getElementById('busqueda').value = v; buscar(); }
 
 function buscar() {
     const query = document.getElementById('busqueda').value.toUpperCase().trim();
     const errorDiv = document.getElementById('mensajeError');
 
-    if (!query) { errorDiv.innerHTML = '<div class="no-results">Ingresa un código o color</div>'; return; }
+    if (!query) {
+        errorDiv.style.display = 'block';
+        errorDiv.textContent = 'Enter a code or color name';
+        return;
+    }
 
     formulaActual = DATABASE.find(f => {
         const cod = f.codigo.toUpperCase();
@@ -640,9 +1045,10 @@ function buscar() {
 
     if (formulaActual) {
         mostrarResultado(formulaActual);
-        errorDiv.innerHTML = '';
+        errorDiv.style.display = 'none';
     } else {
-        errorDiv.innerHTML = `<div class="no-results">❌ No encontrado: "${query}"</div>`;
+        errorDiv.style.display = 'block';
+        errorDiv.innerHTML = `Formula not found: "<strong>${query}</strong>"`;
         document.getElementById('resultado').style.display = 'none';
     }
 }
@@ -655,132 +1061,412 @@ function mostrarResultado(f) {
     badge.textContent = f.categoria;
     badge.className = `cat-badge cat-${f.categoria}`;
 
-    // Ingredientes
+    const btn = document.getElementById('addQueueBtn');
+    const yaEnCola = colaImpresion.some(item => item.codigo === f.codigo && item.nombre === f.nombre);
+    btn.disabled = yaEnCola;
+    btn.textContent = yaEnCola ? '✓ In Queue' : '+ Add to Print Queue';
+    btn.style.background = yaEnCola ? '#2d6a4f' : '#3d7fff';
+
+    const colorNFL = buscarColorNFL(f.nombre);
+    const colorSection = document.getElementById('colorSection');
+    
+    if (colorNFL && colorNFL.hex) {
+        document.getElementById('colorSwatch').style.backgroundColor = colorNFL.hex;
+        document.getElementById('colorName').textContent = colorNFL.name || f.nombre;
+        document.getElementById('colorHex').textContent = colorNFL.hex.toUpperCase();
+        colorSection.style.display = 'flex';
+    } else {
+        document.getElementById('colorSwatch').style.backgroundColor = '#333';
+        document.getElementById('colorName').textContent = 'No color reference';
+        document.getElementById('colorHex').textContent = 'N/A';
+        colorSection.style.display = 'flex';
+    }
+
+    // Tabla con total incluido
     const tabla = document.getElementById('listaIngredientes');
-    tabla.innerHTML = f.ingredientes.map(ing => `
+    let tablaHTML = f.ingredientes.map(ing => `
         <tr>
-            <td class="ing-name">${ing.nombre}</td>
+            <td>${ing.nombre}</td>
             <td>
-                <div class="ing-vals">
-                    <span class="ing-raw">${ing.valor.toFixed ? ing.valor.toFixed(6) : ing.valor}</span>
-                    <span class="ing-pct">${ing.porcentaje}</span>
-                </div>
+                <span class="ing-raw">${ing.valor.toFixed ? ing.valor.toFixed(4) : ing.valor}</span>
+                <span style="color: var(--tegra-text); font-weight: 600;">${ing.porcentaje}</span>
             </td>
         </tr>
     `).join('');
+    
+    // Agregar fila de total
+    tablaHTML += `
+        <tr class="total-row">
+            <td style="font-weight: 700;">TOTAL BASE</td>
+            <td style="font-weight: 700; color: var(--tegra-red) !important;">${f.totalPorcentaje}</td>
+        </tr>
+    `;
+    
+    tabla.innerHTML = tablaHTML;
 
-    // Aditivos
     const adDiv = document.getElementById('aditivosContainer');
-    const cols  = [
-        { key: 'columna_w', label: 'W' },
-        { key: 'columna_x', label: 'X' },
-        { key: 'columna_y', label: 'Y' },
-    ];
+    const cols = ['columna_w','columna_x','columna_y'];
+    
     adDiv.innerHTML = cols.map(({ key, label }) => {
-        const adt     = f.aditivos[key];
-        const hasVal  = adt && parseFloat(adt.valor) > 0;
-        const display = adt ? `${adt.valor}${adt.unidad}` : '—';
-        const nombre  = adt ? adt.nombre : '—';
+        const adt = f.aditivos[key];
+        const hasVal = parseFloat(adt.valor) > 0;
         return `
-            <div class="aditivo-box ${hasVal ? 'has' : 'zero'}">
-                <div class="adt-col">Columna ${label}</div>
-                <div class="adt-name">${nombre}</div>
-                <div class="adt-val">${display}</div>
+            <div class="aditivo-card ${hasVal ? 'has' : 'zero'}">
+                <div class="adt-name">${adt.nombre}</div>
+                <div class="adt-val">${adt.valor}${adt.unidad}</div>
             </div>`;
     }).join('');
 
-    // Comentarios
     const comDiv = document.getElementById('comentariosDisplay');
     if (f.comentarios && f.comentarios !== 'N/A') {
         comDiv.textContent = f.comentarios;
-        comDiv.className   = 'comentario-box';
+        comDiv.className = 'comentario-box';
     } else {
-        comDiv.textContent = 'Sin comentarios';
-        comDiv.className   = 'comentario-box na';
+        comDiv.textContent = 'No additional technical notes';
+        comDiv.className = 'comentario-box na';
     }
 
     document.getElementById('resultado').style.display = 'block';
-    document.getElementById('resultado').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ═══════════════════════════════════════════════════════
-//  DESCARGA DE ETIQUETA HTML
-// ═══════════════════════════════════════════════════════
-function descargarHTML() {
+// SISTEMA DE COLA DE IMPRESIÓN
+function agregarACola() {
     if (!formulaActual) return;
-    const f    = formulaActual;
-    const fecha = new Date().toLocaleDateString('es-ES');
+    
+    const existe = colaImpresion.some(item => 
+        item.codigo === formulaActual.codigo && item.nombre === formulaActual.nombre
+    );
+    
+    if (!existe) {
+        const itemCopia = JSON.parse(JSON.stringify(formulaActual));
+        colaImpresion.push(itemCopia);
+        actualizarVistaCola();
+        
+        const btn = document.getElementById('addQueueBtn');
+        btn.disabled = true;
+        btn.textContent = '✓ In Queue';
+        btn.style.background = '#2d6a4f';
+    }
+}
 
-    const ingsHTML = f.ingredientes.map(ing => `
-        <tr>
-            <td style="padding:11px 14px;border-bottom:1px solid #e5e7eb;">${ing.nombre}</td>
-            <td style="padding:11px 14px;border-bottom:1px solid #e5e7eb;text-align:right;font-family:monospace;font-size:13px;color:#555;">${ing.valor.toFixed ? ing.valor.toFixed(6) : ing.valor}</td>
-            <td style="padding:11px 14px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:700;font-size:16px;color:#1e3a8a;">${ing.porcentaje}</td>
-        </tr>`).join('');
+function eliminarDeCola(index) {
+    colaImpresion.splice(index, 1);
+    actualizarVistaCola();
+    
+    if (formulaActual) {
+        const btn = document.getElementById('addQueueBtn');
+        const yaEnCola = colaImpresion.some(item => 
+            item.codigo === formulaActual.codigo && item.nombre === formulaActual.nombre
+        );
+        btn.disabled = yaEnCola;
+        btn.textContent = yaEnCola ? '✓ In Queue' : '+ Add to Print Queue';
+        btn.style.background = yaEnCola ? '#2d6a4f' : '#3d7fff';
+    }
+}
 
-    const cols = ['columna_w','columna_x','columna_y'];
-    const adtHTML = cols.map(key => {
-        const a = f.aditivos[key];
-        if (!a) return '';
-        const hasVal = parseFloat(a.valor) > 0;
-        const border = hasVal ? '#16a34a' : '#dc2626';
-        const bg     = hasVal ? '#f0fdf4' : '#fef2f2';
-        return `<div style="flex:1;padding:16px;background:${bg};border:2px solid ${border};border-radius:8px;text-align:center;">
-            <div style="font-size:11px;color:#6b7280;letter-spacing:2px;margin-bottom:4px;">Columna ${key.slice(-1).toUpperCase()}</div>
-            <div style="font-weight:600;font-size:13px;margin-bottom:10px;color:#111;">${a.nombre}</div>
-            <div style="font-size:28px;font-weight:900;color:${hasVal ? '#16a34a' : '#dc2626'};">${a.valor}${a.unidad}</div>
+function limpiarCola() {
+    colaImpresion = [];
+    actualizarVistaCola();
+    
+    if (formulaActual) {
+        const btn = document.getElementById('addQueueBtn');
+        btn.disabled = false;
+        btn.textContent = '+ Add to Print Queue';
+        btn.style.background = '#3d7fff';
+    }
+}
+
+function actualizarVistaCola() {
+    const panel = document.getElementById('queuePanel');
+    const items = document.getElementById('queueItems');
+    const count = document.getElementById('queueCount');
+    const countBtn = document.getElementById('queueCountBtn');
+    
+    if (colaImpresion.length === 0) {
+        panel.classList.remove('active');
+        return;
+    }
+    
+    panel.classList.add('active');
+    count.textContent = colaImpresion.length;
+    countBtn.textContent = colaImpresion.length;
+    
+    items.innerHTML = colaImpresion.map((item, index) => `
+        <div class="queue-item">
+            <strong>${item.codigo !== 'N/A' ? item.codigo + ' · ' : ''}${item.nombre}</strong>
+            <span class="remove" onclick="eliminarDeCola(${index})">×</span>
+        </div>
+    `).join('');
+}
+
+// IMPRESIÓN MÚLTIPLE - 6 POR PÁGINA (3x2)
+function imprimirCola() {
+    if (colaImpresion.length === 0) return;
+    
+    const sistema = SISTEMAS[SISTEMA_ACTUAL];
+    const fecha = new Date().toLocaleDateString('en-US');
+    
+    const etiquetasPorPagina = 6;
+    const numPaginas = Math.ceil(colaImpresion.length / etiquetasPorPagina);
+    
+    let paginasHTML = '';
+    
+    for (let i = 0; i < numPaginas; i++) {
+        const inicio = i * etiquetasPorPagina;
+        const fin = Math.min(inicio + etiquetasPorPagina, colaImpresion.length);
+        const etiquetasDeEstaPagina = colaImpresion.slice(inicio, fin);
+        
+        let gridContent = '';
+        
+        for (let j = 0; j < etiquetasPorPagina; j++) {
+            if (j < etiquetasDeEstaPagina.length) {
+                const f = etiquetasDeEstaPagina[j];
+                const colorNFL = buscarColorNFL(f.nombre);
+                const colorHex = colorNFL ? colorNFL.hex : '#cccccc';
+                const colorName = colorNFL ? colorNFL.name : f.nombre;
+                
+                // Calcular total para la etiqueta
+                const totalBase = f.ingredientes.reduce((sum, ing) => sum + (ing.valor || 0), 0);
+                const totalPorcentaje = (totalBase * 100).toFixed(2) + '%';
+                
+                const ingsHTML = f.ingredientes.map(ing => `
+                    <tr style="border-bottom: 1px solid #e5e5e5;">
+                        <td style="padding: 3px 4px; font-size: 8px; font-weight: 600; line-height: 1.2;">${ing.nombre}</td>
+                        <td style="padding: 3px 4px; text-align: right; font-family: monospace; font-size: 7px; color: #666;">${ing.valor.toFixed ? ing.valor.toFixed(4) : ing.valor}</td>
+                        <td style="padding: 3px 4px; text-align: right; font-weight: 700; font-size: 9px; color: ${sistema.color};">${ing.porcentaje}</td>
+                    </tr>`).join('');
+
+                const cols = ['columna_w','columna_x','columna_y'];
+                const adtHTML = cols.map(key => {
+                    const a = f.aditivos[key];
+                    const hasVal = parseFloat(a.valor) > 0;
+                    const borderColor = hasVal ? '#2d6a4f' : '#c41e3a';
+                    const bgColor = hasVal ? '#f0fdf4' : '#fef2f2';
+                    const textColor = hasVal ? '#2d6a4f' : '#666';
+                    
+                    return `<div style="flex: 1; padding: 8px 4px; background: ${bgColor}; border: 2px solid ${borderColor}; border-radius: 4px; text-align: center; margin: 0 3px;">
+                        <div style="font-size: 9px; font-weight: 800; color: #111; margin-bottom: 4px; line-height: 1.2; word-break: break-word; text-transform: uppercase;">${a.nombre}</div>
+                        <div style="font-size: 20px; font-weight: 900; color: ${textColor}; font-family: 'Oswald', sans-serif; line-height: 1;">${a.valor}${a.unidad}</div>
+                    </div>`;
+                }).join('');
+
+                gridContent += `
+                <div class="label-item">
+                    <!-- Warning Label más grande: 60x60px -->
+                    <div style="position: absolute; top: 10px; right: 10px; width: 60px; height: 60px; z-index: 10;">
+                        <img src="${WARNING_LABEL_URL}" style="width: 100%; height: 100%;" alt="Warning">
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; margin-bottom: 10px; padding-right: 70px;">
+                        <img src="${TEGRA_LOGO_URL}" style="height: 20px; width: auto; margin-right: 8px; filter: brightness(0);" alt="Tegra">
+                        <div>
+                            <div style="font-size: 8px; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">Color Lab · ${sistema.nombre}</div>
+                            <div style="font-size: 16px; font-weight: 900; color: #111; letter-spacing: -0.5px; font-family: 'Oswald', sans-serif; line-height: 1.2;">${f.codigo !== 'N/A' ? f.codigo : '—'}</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 8px; background: #f5f5f5; border-radius: 6px; border: 1px solid #ddd;">
+                        <div style="width: 45px; height: 45px; border-radius: 50%; background: ${colorHex}; border: 3px solid #fff; box-shadow: 0 3px 6px rgba(0,0,0,0.2); flex-shrink: 0;"></div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-size: 13px; font-weight: 800; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: 'Oswald', sans-serif; text-transform: uppercase; line-height: 1.3;">${colorName}</div>
+                            <div style="font-family: 'Courier New', monospace; font-size: 11px; color: #666; font-weight: 700; margin-top: 2px;">${colorHex}</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 9px;">
+                        <span style="background: ${sistema.color}; color: #fff; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; font-size: 9px;">${f.categoria}</span>
+                        <span style="color: #666; font-weight: 700;">${fecha}</span>
+                    </div>
+
+                    <div style="font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; color: ${sistema.color}; border-bottom: 2px solid ${sistema.color}; padding-bottom: 3px;">Base Composition</div>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 8px;">
+                        <thead>
+                            <tr style="background: #111; color: #fff;">
+                                <th style="padding: 4px; text-align: left; font-size: 7px; text-transform: uppercase; letter-spacing: 1px;">Component</th>
+                                <th style="padding: 4px; text-align: right; font-size: 7px;">Ratio</th>
+                                <th style="padding: 4px; text-align: right; font-size: 7px;">%</th>
+                            </tr>
+                        </thead>
+                        <tbody>${ingsHTML}</tbody>
+                        <tfoot>
+                            <tr style="background: #f0f0f0; border-top: 2px solid #111;">
+                                <td style="padding: 4px; font-size: 9px; font-weight: 800; color: #111;">TOTAL BASE</td>
+                                <td style="padding: 4px; text-align: right; font-family: monospace; font-size: 7px; color: #111; font-weight: 700;"></td>
+                                <td style="padding: 4px; text-align: right; font-size: 11px; color: ${sistema.color}; font-weight: 900;">${totalPorcentaje}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div style="font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; color: ${sistema.color};">Additives</div>
+                    <div style="display: flex; gap: 4px; margin-bottom: 10px;">${adtHTML}</div>
+
+                    ${f.comentarios && f.comentarios !== 'N/A' ? `
+                    <div style="margin-top: auto; background: #fefce8; border: 2px solid #eab308; border-radius: 4px; padding: 6px; font-size: 9px; color: #854d0e; font-weight: 700; line-height: 1.3;">
+                        <strong>NOTE:</strong> ${f.comentarios}
+                    </div>
+                    ` : ''}
+
+                    <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid #ddd; text-align: center; font-size: 8px; color: #999; font-weight: 700; letter-spacing: 1px;">
+                        TEGRA COLOR LAB · ${fecha}
+                    </div>
+                </div>`;
+            } else {
+                gridContent += `<div class="label-item empty"></div>`;
+            }
+        }
+        
+        paginasHTML += `
+        <div class="page">
+            <div class="labels-grid-6">
+                ${gridContent}
+            </div>
         </div>`;
-    }).join('');
-
-    const comentHTML = (f.comentarios && f.comentarios !== 'N/A')
-        ? `<div style="background:#fefce8;border:2px solid #eab308;border-radius:8px;padding:18px;text-align:center;font-size:18px;font-weight:700;color:#854d0e;">${f.comentarios}</div>`
-        : `<div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px;text-align:center;font-size:14px;color:#9ca3af;">Sin comentarios</div>`;
+    }
 
     const html = `<!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8">
-<title>Etiqueta ${f.codigo !== 'N/A' ? f.codigo : f.nombre}</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tegra Color Lab · Print Queue · ${colaImpresion.length} Labels</title>
 <style>
-  @media print{.noprint{display:none}body{padding:20px}}
-  body{font-family:Arial,sans-serif;max-width:820px;margin:0 auto;padding:40px 24px;background:#fff;color:#111;}
-  h1{font-size:30px;font-weight:900;text-transform:uppercase;letter-spacing:-1px;}
-  .sub{color:#666;font-size:14px;margin-top:4px;}
-  .info{display:flex;gap:30px;margin:24px 0;padding:18px 20px;background:#f8f9fa;border-radius:8px;}
-  .info-item label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#999;display:block;}
-  .info-item value{font-size:18px;font-weight:700;}
-  table{width:100%;border-collapse:collapse;margin:16px 0;}
-  th{background:#111;color:#fff;padding:12px 14px;text-align:left;font-size:13px;letter-spacing:1px;}
-  .sec{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:28px 0 14px;color:#1e3a8a;padding-bottom:8px;border-bottom:2px solid #1e3a8a;}
-  .controls{position:fixed;top:16px;right:16px;background:#fff;padding:16px;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.15);}
-  .controls button{padding:10px 20px;background:#1e3a8a;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:700;}
-</style></head><body>
-<div class="noprint controls"><button onclick="window.print()">🖨️ Imprimir</button></div>
-<h1>Fanatics Silicon</h1>
-<div class="sub">Sistema de Fórmulas Fanatics</div>
-<div class="info">
-  <div class="info-item"><label>Código</label><value>${f.codigo}</value></div>
-  <div class="info-item"><label>Color</label><value>${f.nombre}</value></div>
-  <div class="info-item"><label>Categoría</label><value>${f.categoria}</value></div>
-  <div class="info-item"><label>Fecha</label><value>${fecha}</value></div>
-</div>
-<div class="sec">Composición Base</div>
-<table>
-  <thead><tr><th>Componente</th><th style="text-align:right">Proporción</th><th style="text-align:right">%</th></tr></thead>
-  <tbody>${ingsHTML}</tbody>
-</table>
-<div class="sec">Aditivos</div>
-<div style="display:flex;gap:12px;margin:16px 0;">${adtHTML}</div>
-<div class="sec">Comentarios (Z)</div>
-${comentHTML}
-<div style="margin-top:40px;padding-top:16px;border-top:2px solid #111;text-align:center;font-size:11px;color:#999;">
-  Fanatics Silicon Production · ${fecha}
-</div>
-</body></html>`;
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap');
+    
+    @media print {
+        .no-print { display: none !important; }
+        body { margin: 0; padding: 0; background: white; }
+        .page { 
+            page-break-after: always; 
+            page-break-inside: avoid;
+        }
+        .page:last-child { page-break-after: auto; }
+        .labels-grid-6 { 
+            display: grid !important; 
+            grid-template-columns: 1fr 1fr 1fr !important; 
+            grid-template-rows: 1fr 1fr !important;
+            gap: 8mm !important;
+            padding: 10mm !important;
+            height: 277mm !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        .label-item { 
+            border: 2px solid #000 !important; 
+            page-break-inside: avoid !important;
+            box-shadow: none !important;
+            height: 100% !important;
+            max-height: 128mm !important;
+        }
+        .label-item.empty { border: 2px dashed #ccc !important; background: #fafafa !important; }
+    }
+    
+    @page { 
+        size: letter landscape; 
+        margin: 0;
+    }
+    
+    body { 
+        font-family: 'Inter', sans-serif; 
+        margin: 0; 
+        padding: 20px; 
+        background: #f5f5f5; 
+        color: #111;
+    }
+    
+    .no-print { 
+        position: fixed; 
+        top: 20px; 
+        right: 20px; 
+        background: #fff; 
+        padding: 20px; 
+        border-radius: 8px; 
+        box-shadow: 0 4px 20px rgba(0,0,0,.15);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        min-width: 200px;
+    }
+    
+    .no-print button { 
+        padding: 12px 24px; 
+        background: ${sistema.color}; 
+        color: white; 
+        border: none; 
+        border-radius: 6px; 
+        cursor: pointer; 
+        font-family: 'Oswald', sans-serif; 
+        font-size: 16px; 
+        font-weight: 700; 
+        text-transform: uppercase; 
+        letter-spacing: 1px;
+        transition: opacity 0.2s;
+    }
+    
+    .no-print button:hover { opacity: 0.9; }
+    .no-print button.secondary { background: #666; }
+    .no-print .info {
+        font-size: 14px;
+        color: #666;
+        text-align: center;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+    
+    .page {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .labels-grid-6 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 15px;
+        max-width: 1100px;
+        margin: 0 auto;
+        height: 800px;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .label-item {
+        background: #fff;
+        border: 2px solid #111;
+        border-radius: 8px;
+        padding: 12px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        overflow: hidden;
+        height: 100%;
+        box-sizing: border-box;
+    }
+    
+    .label-item.empty {
+        border: 2px dashed #ddd;
+        background: #fafafa;
+    }
+</style>
+</head>
+<body>
+    <div class="no-print">
+        <div class="info">Print Queue: ${colaImpresion.length} labels · ${numPaginas} page${numPaginas > 1 ? 's' : ''}</div>
+        <button onclick="window.print()">🖨️ Print All</button>
+        <button class="secondary" onclick="window.close()">✕ Close</button>
+    </div>
+    
+    ${paginasHTML}
+</body>
+</html>`;
 
     const blob = new Blob([html], { type: 'text/html' });
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href     = url;
-    a.download = `Etiqueta_${f.codigo !== 'N/A' ? f.codigo : f.nombre}_WXYZ.html`;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Tegra_PrintQueue_${colaImpresion.length}labels.html`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -790,16 +1476,21 @@ ${comentHTML}
 function nuevaBusqueda() {
     document.getElementById('resultado').style.display = 'none';
     document.getElementById('busqueda').value = '';
-    document.getElementById('mensajeError').innerHTML = '';
+    document.getElementById('mensajeError').style.display = 'none';
     document.getElementById('busqueda').focus();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 document.getElementById('busqueda').addEventListener('keypress', e => {
     if (e.key === 'Enter') buscar();
 });
 
-// Iniciar
-cargarJSON();
+async function init() {
+    await cargarColoresNFL();
+    cargarJSON();
+}
+
+init();
 </script>
 </body>
 </html>
