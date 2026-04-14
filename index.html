@@ -1104,11 +1104,14 @@ function mostrarResultado(f) {
     
     tabla.innerHTML = tablaHTML;
 
+    // CORRECCIÓN: Simplificar el mapeo de aditivos sin destructuring incorrecto
     const adDiv = document.getElementById('aditivosContainer');
-    const cols = ['columna_w','columna_x','columna_y'];
+    const cols = ['columna_w', 'columna_x', 'columna_y'];
     
-    adDiv.innerHTML = cols.map(({ key, label }) => {
+    adDiv.innerHTML = cols.map((key) => {
         const adt = f.aditivos[key];
+        if (!adt) return ''; // Protección contra undefined
+        
         const hasVal = parseFloat(adt.valor) > 0;
         return `
             <div class="aditivo-card ${hasVal ? 'has' : 'zero'}">
@@ -1240,6 +1243,7 @@ function imprimirCola() {
                 const cols = ['columna_w','columna_x','columna_y'];
                 const adtHTML = cols.map(key => {
                     const a = f.aditivos[key];
+                    if (!a) return '';
                     const hasVal = parseFloat(a.valor) > 0;
                     const borderColor = hasVal ? '#2d6a4f' : '#c41e3a';
                     const bgColor = hasVal ? '#f0fdf4' : '#fef2f2';
